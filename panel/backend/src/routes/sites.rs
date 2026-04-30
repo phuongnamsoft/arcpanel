@@ -403,7 +403,7 @@ pub async fn create(
             // NOTE: Auto-monitor creation disabled — on fresh installs without DNS
             // configured, auto-created monitors immediately show "down" which confuses
             // new users. Users can create monitors manually when ready.
-            // See: https://github.com/ovexro/dockpanel/issues/XX
+            // See: https://github.com/phuongnamsoft/arcpanel/issues/XX
 
             // Auto-create backup schedule for every new site (daily 3 AM, 7 retention)
             {

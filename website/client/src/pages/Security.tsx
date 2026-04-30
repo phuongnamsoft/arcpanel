@@ -227,7 +227,7 @@ export default function Security() {
                 Verify a downloaded binary
               </span>
               <a
-                href="https://github.com/ovexro/dockpanel/blob/main/SECURITY.md#verifying-release-signatures"
+                href="https://github.com/phuongnamsoft/arcpanel/blob/main/SECURITY.md#verifying-release-signatures"
                 className="flex items-center gap-1 text-[11px] text-zinc-500 hover:text-white"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -245,7 +245,7 @@ export default function Security() {
         <section className="mt-16">
           <h2 className={`text-2xl font-bold text-white ${hd}`}>CVE response SLA</h2>
           <p className="mt-2 text-sm text-zinc-500">
-            From <a href="https://github.com/ovexro/dockpanel/blob/main/SECURITY.md" className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300" target="_blank" rel="noopener noreferrer">SECURITY.md</a>.
+            From <a href="https://github.com/phuongnamsoft/arcpanel/blob/main/SECURITY.md" className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300" target="_blank" rel="noopener noreferrer">SECURITY.md</a>.
             We don&apos;t pursue legal action against good-faith researchers.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -288,7 +288,7 @@ export default function Security() {
           <div className="mt-4 text-[12px] text-zinc-600">
             Full write-ups in{' '}
             <a
-              href="https://github.com/ovexro/dockpanel/blob/main/SECURITY.md#past-security-work"
+              href="https://github.com/phuongnamsoft/arcpanel/blob/main/SECURITY.md#past-security-work"
               className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300"
               target="_blank"
               rel="noopener noreferrer"
@@ -304,7 +304,7 @@ export default function Security() {
           <p className="mt-2 text-sm text-zinc-500">
             What we&apos;ve shipped to harden the panel. From the{' '}
             <a
-              href="https://github.com/ovexro/dockpanel/blob/main/CHANGELOG.md"
+              href="https://github.com/phuongnamsoft/arcpanel/blob/main/CHANGELOG.md"
               className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300"
               target="_blank"
               rel="noopener noreferrer"
@@ -377,7 +377,7 @@ export default function Security() {
               <Mail className="h-4 w-4" /> security@arcpanel.top
             </a>
             <a
-              href="https://github.com/ovexro/dockpanel/security/advisories/new"
+              href="https://github.com/phuongnamsoft/arcpanel/security/advisories/new"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900/50 px-4 py-2 text-[13px] font-semibold text-zinc-200 transition hover:border-zinc-700"
@@ -385,7 +385,7 @@ export default function Security() {
               <Github className="h-4 w-4" /> GitHub Security Advisory
             </a>
             <a
-              href="https://github.com/ovexro/dockpanel/blob/main/SECURITY.md"
+              href="https://github.com/phuongnamsoft/arcpanel/blob/main/SECURITY.md"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900/50 px-4 py-2 text-[13px] font-semibold text-zinc-200 transition hover:border-zinc-700"
@@ -398,7 +398,7 @@ export default function Security() {
         <div className="mt-16 border-t border-zinc-800/60 pt-6 text-[12px] text-zinc-600">
           Page reflects state at {POSTURE.currentVersion}. Audit and finding counts are tracked in{' '}
           <a
-            href="https://github.com/ovexro/dockpanel/blob/main/SECURITY.md"
+            href="https://github.com/phuongnamsoft/arcpanel/blob/main/SECURITY.md"
             className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300"
             target="_blank"
             rel="noopener noreferrer"
@@ -407,7 +407,7 @@ export default function Security() {
           </a>{' '}
           and the{' '}
           <a
-            href="https://github.com/ovexro/dockpanel/blob/main/CHANGELOG.md"
+            href="https://github.com/phuongnamsoft/arcpanel/blob/main/CHANGELOG.md"
             className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300"
             target="_blank"
             rel="noopener noreferrer"

@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ovexro/dockpanel/releases"><img src="https://img.shields.io/github/v/release/ovexro/dockpanel" alt="Release"></a>
-  <a href="https://github.com/ovexro/dockpanel/actions"><img src="https://img.shields.io/github/actions/workflow/status/ovexro/dockpanel/ci.yml?label=CI" alt="CI"></a>
+  <a href="https://github.com/phuongnamsoft/arcpanel/releases"><img src="https://img.shields.io/github/v/release/ovexro/dockpanel" alt="Release"></a>
+  <a href="https://github.com/phuongnamsoft/arcpanel/actions"><img src="https://img.shields.io/github/actions/workflow/status/ovexro/dockpanel/ci.yml?label=CI" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-BSL_1.1-blue.svg" alt="License: BSL 1.1"></a>
 </p>
 
@@ -19,7 +19,7 @@
   <a href="https://arcpanel.top">Website</a> &bull;
   <a href="https://docs.arcpanel.top">Docs</a> &bull;
   <a href="CHANGELOG.md">Changelog</a> &bull;
-  <a href="https://github.com/ovexro/dockpanel/discussions">Discussions</a>
+  <a href="https://github.com/phuongnamsoft/arcpanel/discussions">Discussions</a>
 </p>
 
 ---
@@ -245,7 +245,7 @@ Arcpanel has undergone seven rounds of security auditing (280+ vulnerabilities f
 ## Development
 
 ```bash
-git clone https://github.com/ovexro/dockpanel.git && cd dockpanel
+git clone https://github.com/phuongnamsoft/arcpanel.git && cd dockpanel
 
 # Start database
 docker run -d --name arc-postgres \

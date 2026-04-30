@@ -93,7 +93,7 @@ export default function PrivacyPolicy() {
             <p className="mt-2">
               If you have questions about this privacy policy, you can open an issue on our{' '}
               <a
-                href="https://github.com/ovexro/dockpanel"
+                href="https://github.com/phuongnamsoft/arcpanel"
                 className="text-emerald-400 underline underline-offset-2 transition hover:text-emerald-300"
                 target="_blank"
                 rel="noopener noreferrer"

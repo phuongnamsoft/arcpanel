@@ -748,7 +748,7 @@ git commit -m "feat(rebrand): installer and release scripts for arcpanel.top and
 [book]
 title = "Arcpanel Documentation"
 authors = ["Arcpanel"]
-git-repository-url = "https://github.com/ovexro/dockpanel"
+git-repository-url = "https://github.com/phuongnamsoft/arcpanel"
 ```
 
 (Adjust GitHub URL when the repo is renamed.)

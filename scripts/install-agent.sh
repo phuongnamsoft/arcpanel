@@ -115,7 +115,7 @@ chmod 600 /etc/arcpanel/agent.env
 
 # Download agent binary (naming matches GitHub release assets)
 echo "[5/7] Downloading agent binary..."
-DOWNLOAD_URL="https://github.com/ovexro/dockpanel/releases/latest/download/arc-agent-linux-${ARCH_LABEL}"
+DOWNLOAD_URL="https://github.com/phuongnamsoft/arcpanel/releases/latest/download/arc-agent-linux-${ARCH_LABEL}"
 if ! curl -fsSL "$DOWNLOAD_URL" -o /usr/local/bin/arc-agent; then
     echo "  Release download failed. Trying panel download..."
     if [[ -n "$PANEL_URL" ]]; then

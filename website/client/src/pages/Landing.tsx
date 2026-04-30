@@ -322,7 +322,7 @@ export default function Landing() {
             <NavLink href="#faq" label="FAQ" active={activeSection === 'faq'} />
           </div>
           <div className="flex items-center gap-3">
-            <a href="https://github.com/ovexro/dockpanel" className="hidden sm:flex items-center gap-1.5 text-[13px] text-zinc-500 hover:text-white transition-colors">
+            <a href="https://github.com/phuongnamsoft/arcpanel" className="hidden sm:flex items-center gap-1.5 text-[13px] text-zinc-500 hover:text-white transition-colors">
               <Github className="w-4 h-4" />
               {stars !== null && (
                 <span className="flex items-center gap-1 text-xs">
@@ -364,7 +364,7 @@ export default function Landing() {
                 <a href="#pricing" onClick={() => setMobileMenu(false)} className="text-zinc-300 hover:text-white transition-colors">Pricing</a>
                 <a href="#faq" onClick={() => setMobileMenu(false)} className="text-zinc-300 hover:text-white transition-colors">FAQ</a>
                 <hr className="border-zinc-800" />
-                <a href="https://github.com/ovexro/dockpanel" className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors">
+                <a href="https://github.com/phuongnamsoft/arcpanel" className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors">
                   <Github className="w-4 h-4" /> GitHub
                 </a>
                 <a href="https://docs.arcpanel.top" className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors">
@@ -421,7 +421,7 @@ export default function Landing() {
               <a href="https://docs.arcpanel.top" className="flex items-center gap-2 bg-white hover:bg-zinc-200 text-zinc-900 px-6 py-3 rounded-lg text-[15px] font-bold transition-colors">
                 Get Started <ArrowRight className="w-4 h-4" />
               </a>
-              <a href="https://github.com/ovexro/dockpanel" className="flex items-center gap-2 text-[15px] font-medium text-zinc-300 hover:text-white px-5 py-3 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 transition-all">
+              <a href="https://github.com/phuongnamsoft/arcpanel" className="flex items-center gap-2 text-[15px] font-medium text-zinc-300 hover:text-white px-5 py-3 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 transition-all">
                 <Github className="w-4 h-4" /> Source
               </a>
             </div>
@@ -645,7 +645,7 @@ export default function Landing() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
-              <a href="https://github.com/ovexro/dockpanel" className="flex items-center gap-2 bg-white hover:bg-zinc-200 text-zinc-900 px-6 py-3 rounded-lg text-sm font-bold transition-colors">
+              <a href="https://github.com/phuongnamsoft/arcpanel" className="flex items-center gap-2 bg-white hover:bg-zinc-200 text-zinc-900 px-6 py-3 rounded-lg text-sm font-bold transition-colors">
                 <Github className="w-4 h-4" /> View on GitHub
               </a>
               <a href="https://docs.arcpanel.top" className="flex items-center gap-2 border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 text-white px-6 py-3 rounded-lg text-sm font-bold transition-all">
@@ -714,7 +714,7 @@ export default function Landing() {
                   <a href="#features" className="hover:text-zinc-300 transition-colors">Features</a>
                   <Link to="/security" className="hover:text-zinc-300 transition-colors">Security</Link>
                   <a href="https://docs.arcpanel.top" className="hover:text-zinc-300 transition-colors">Docs</a>
-                  <a href="https://github.com/ovexro/dockpanel" className="hover:text-zinc-300 transition-colors">GitHub</a>
+                  <a href="https://github.com/phuongnamsoft/arcpanel" className="hover:text-zinc-300 transition-colors">GitHub</a>
                 </div>
               </div>
               <div>

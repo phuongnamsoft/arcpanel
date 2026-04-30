@@ -87,7 +87,7 @@ Use this to pivot a Grafana dashboard on Arcpanel version for upgrade cutovers.
 
 ## Pre-built Grafana dashboard
 
-A drop-in Grafana dashboard ships in the repo at [`dashboards/arcpanel-grafana.json`](https://github.com/ovexro/dockpanel/blob/main/dashboards/arcpanel-grafana.json). It covers:
+A drop-in Grafana dashboard ships in the repo at [`dashboards/arcpanel-grafana.json`](https://github.com/phuongnamsoft/arcpanel/blob/main/dashboards/arcpanel-grafana.json). It covers:
 
 - Header stats — Arcpanel version, servers reporting, sites, alerts firing by severity, GPUs reporting
 - CPU / memory / disk timeseries per server (with thresholds at sensible levels)

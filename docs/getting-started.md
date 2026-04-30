@@ -43,7 +43,7 @@ INSTALL_FROM_RELEASE=1 curl -sL https://arcpanel.top/install.sh | sudo bash
 Or clone and run manually:
 
 ```bash
-git clone https://github.com/ovexro/dockpanel.git /opt/arcpanel
+git clone https://github.com/phuongnamsoft/arcpanel.git /opt/arcpanel
 cd /opt/arcpanel
 sudo bash scripts/setup.sh
 ```

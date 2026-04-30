@@ -31,7 +31,7 @@ export default function TermsOfService() {
             <p className="mt-2">
               Arcpanel is free, open-source software licensed under the{' '}
               <a
-                href="https://github.com/ovexro/dockpanel/blob/main/LICENSE"
+                href="https://github.com/phuongnamsoft/arcpanel/blob/main/LICENSE"
                 className="text-emerald-400 underline underline-offset-2 transition hover:text-emerald-300"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -49,7 +49,7 @@ export default function TermsOfService() {
               copy, modify, and self-host the software for non-production or evaluation purposes. The license
               converts to MIT on 2030-03-25. The full license text is available in the{' '}
               <a
-                href="https://github.com/ovexro/dockpanel/blob/main/LICENSE"
+                href="https://github.com/phuongnamsoft/arcpanel/blob/main/LICENSE"
                 className="text-emerald-400 underline underline-offset-2 transition hover:text-emerald-300"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -91,7 +91,7 @@ export default function TermsOfService() {
             <p className="mt-2">
               Community support is available through{' '}
               <a
-                href="https://github.com/ovexro/dockpanel/issues"
+                href="https://github.com/phuongnamsoft/arcpanel/issues"
                 className="text-emerald-400 underline underline-offset-2 transition hover:text-emerald-300"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -116,7 +116,7 @@ export default function TermsOfService() {
             <p className="mt-2">
               For questions about these terms, please open an issue on our{' '}
               <a
-                href="https://github.com/ovexro/dockpanel"
+                href="https://github.com/phuongnamsoft/arcpanel"
                 className="text-emerald-400 underline underline-offset-2 transition hover:text-emerald-300"
                 target="_blank"
                 rel="noopener noreferrer"

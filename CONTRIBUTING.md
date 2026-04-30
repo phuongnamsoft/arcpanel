@@ -14,7 +14,7 @@ Thanks for your interest in contributing! This guide covers development setup, c
 ### Getting Started
 
 ```bash
-git clone https://github.com/ovexro/dockpanel.git
+git clone https://github.com/phuongnamsoft/arcpanel.git
 cd dockpanel
 
 # Start PostgreSQL

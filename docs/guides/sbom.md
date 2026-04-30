@@ -47,7 +47,7 @@ grype sbom:./my-app.spdx.json
 
 ## Verifying Arcpanel's own release SBOMs
 
-Since v2.7.10, Arcpanel itself ships SPDX SBOMs for `arc-agent`, `arc-api`, and `arc` (CLI), all signed with cosign keyless via Sigstore. See [SECURITY.md](https://github.com/ovexro/dockpanel/blob/main/SECURITY.md#verifying-release-signatures) for the full verification snippet — short version:
+Since v2.7.10, Arcpanel itself ships SPDX SBOMs for `arc-agent`, `arc-api`, and `arc` (CLI), all signed with cosign keyless via Sigstore. See [SECURITY.md](https://github.com/phuongnamsoft/arcpanel/blob/main/SECURITY.md#verifying-release-signatures) for the full verification snippet — short version:
 
 ```bash
 cosign verify-blob \
