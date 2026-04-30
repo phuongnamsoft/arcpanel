@@ -233,7 +233,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
   **Operators currently stuck on v2.7.11 or v2.7.12** (where the broken
   health check rolls every upgrade back) need to bootstrap once:
   ```
-  sudo curl -fsSL https://raw.githubusercontent.com/ovexro/dockpanel/main/scripts/update.sh \
+  sudo curl -fsSL https://raw.githubusercontent.com/phuongnamsoft/arcpanel/main/scripts/update.sh \
        -o /opt/dockpanel/scripts/update.sh
   sudo INSTALL_FROM_RELEASE=1 bash /opt/dockpanel/scripts/update.sh
   ```

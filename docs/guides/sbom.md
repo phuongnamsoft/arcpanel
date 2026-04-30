@@ -53,7 +53,7 @@ Since v2.7.10, Arcpanel itself ships SPDX SBOMs for `arc-agent`, `arc-api`, and 
 cosign verify-blob \
   --certificate arc-agent.spdx.json.pem \
   --signature  arc-agent.spdx.json.sig \
-  --certificate-identity-regexp '^https://github\.com/ovexro/dockpanel/\.github/workflows/release\.yml@refs/tags/v.+$' \
+  --certificate-identity-regexp '^https://github\.com/phuongnamsoft/arcpanel/\.github/workflows/release\.yml@refs/tags/v.+$' \
   --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
   arc-agent.spdx.json
 ```

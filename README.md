@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/phuongnamsoft/arcpanel/releases"><img src="https://img.shields.io/github/v/release/ovexro/dockpanel" alt="Release"></a>
-  <a href="https://github.com/phuongnamsoft/arcpanel/actions"><img src="https://img.shields.io/github/actions/workflow/status/ovexro/dockpanel/ci.yml?label=CI" alt="CI"></a>
+  <a href="https://github.com/phuongnamsoft/arcpanel/releases"><img src="https://img.shields.io/github/v/release/phuongnamsoft/arcpanel" alt="Release"></a>
+  <a href="https://github.com/phuongnamsoft/arcpanel/actions"><img src="https://img.shields.io/github/actions/workflow/status/phuongnamsoft/arcpanel/ci.yml?label=CI" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-BSL_1.1-blue.svg" alt="License: BSL 1.1"></a>
 </p>
 

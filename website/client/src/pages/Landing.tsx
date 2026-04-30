@@ -269,7 +269,7 @@ export default function Landing() {
   }, []);
 
   useEffect(() => {
-    fetch('https://api.github.com/repos/ovexro/dockpanel')
+    fetch('https://api.github.com/repos/phuongnamsoft/arcpanel')
       .then(r => r.json())
       .then(d => { if (d.stargazers_count) setStars(d.stargazers_count); })
       .catch(() => {});

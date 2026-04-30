@@ -331,6 +331,6 @@ INSTALL_FROM_RELEASE=1 sudo bash /opt/arcpanel/scripts/update.sh
 
 ## Getting Help
 
-- **GitHub Issues**: [github.com/ovexro/dockpanel/issues](https://github.com/phuongnamsoft/arcpanel/issues) -- Report bugs or request features
+- **GitHub Issues**: [github.com/phuongnamsoft/arcpanel/issues](https://github.com/phuongnamsoft/arcpanel/issues) -- Report bugs or request features
 - **Discussions**: Use GitHub Issues for questions and community support
 - **Email**: hello@arcpanel.top for priority support inquiries

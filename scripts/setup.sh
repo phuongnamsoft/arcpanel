@@ -31,7 +31,7 @@ CLI_BIN="/usr/local/bin/arc"
 DB_PORT=5450
 DB_CONTAINER="arc-postgres"
 INSTALL_FROM_RELEASE="${INSTALL_FROM_RELEASE:-0}"
-GITHUB_REPO="ovexro/dockpanel"
+GITHUB_REPO="phuongnamsoft/arcpanel"
 
 # ── Resolve repo root ───────────────────────────────────────────────────
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

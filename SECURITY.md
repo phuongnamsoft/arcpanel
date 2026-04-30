@@ -89,7 +89,7 @@ Every release asset since v2.7.10 ships with a `.sig` and `.pem` next to it, plu
 cosign verify-blob \
   --certificate arc-agent-linux-amd64.pem \
   --signature  arc-agent-linux-amd64.sig \
-  --certificate-identity-regexp '^https://github\.com/ovexro/dockpanel/\.github/workflows/release\.yml@refs/tags/v.+$' \
+  --certificate-identity-regexp '^https://github\.com/phuongnamsoft/arcpanel/\.github/workflows/release\.yml@refs/tags/v.+$' \
   --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
   arc-agent-linux-amd64
 ```

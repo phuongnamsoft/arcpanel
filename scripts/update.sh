@@ -36,7 +36,7 @@ AGENT_BIN="/usr/local/bin/arc-agent"
 API_BIN="/usr/local/bin/arc-api"
 CLI_BIN="/usr/local/bin/arc"
 INSTALL_FROM_RELEASE="${INSTALL_FROM_RELEASE:-0}"
-GITHUB_REPO="ovexro/dockpanel"
+GITHUB_REPO="phuongnamsoft/arcpanel"
 
 # ── Self-refresh ──────────────────────────────────────────────────────────
 # In binary-release mode, the on-disk copy of this script can lag the

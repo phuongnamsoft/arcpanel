@@ -16,7 +16,7 @@ const UPDATE_CHECK_INTERVAL: Duration = Duration::from_secs(21600); // 6 hours
 const RETENTION_DAYS: i64 = 30;
 const MAX_BATCH_SIZE: i64 = 50;
 const GITHUB_RELEASES_URL: &str =
-    "https://api.github.com/repos/ovexro/dockpanel/releases/latest";
+    "https://api.github.com/repos/phuongnamsoft/arcpanel/releases/latest";
 
 /// Record a telemetry event (callable from anywhere in the backend).
 pub async fn record_event(
