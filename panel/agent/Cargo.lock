@@ -36,6 +36,42 @@ dependencies = [
 ]
 
 [[package]]
+name = "arcpanel-agent"
+version = "2.7.20"
+dependencies = [
+ "axum",
+ "axum-server",
+ "base64",
+ "bollard",
+ "chrono",
+ "hex",
+ "instant-acme",
+ "jsonwebtoken",
+ "libc",
+ "rand 0.9.4",
+ "rcgen",
+ "reqwest",
+ "rustix",
+ "rustls",
+ "rustls-pemfile",
+ "serde",
+ "serde_json",
+ "serde_yaml_ng",
+ "sha2",
+ "subtle",
+ "sysinfo",
+ "tera",
+ "tikv-jemallocator",
+ "time",
+ "tokio",
+ "tokio-stream",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+ "x509-parser 0.16.0",
+]
+
+[[package]]
 name = "asn1-rs"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -520,42 +556,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
-]
-
-[[package]]
-name = "arcpanel-agent"
-version = "2.7.20"
-dependencies = [
- "axum",
- "axum-server",
- "base64",
- "bollard",
- "chrono",
- "hex",
- "instant-acme",
- "jsonwebtoken",
- "libc",
- "rand 0.9.4",
- "rcgen",
- "reqwest",
- "rustix",
- "rustls",
- "rustls-pemfile",
- "serde",
- "serde_json",
- "serde_yaml_ng",
- "sha2",
- "subtle",
- "sysinfo",
- "tera",
- "tikv-jemallocator",
- "time",
- "tokio",
- "tokio-stream",
- "tracing",
- "tracing-subscriber",
- "uuid",
- "x509-parser 0.16.0",
 ]
 
 [[package]]
@@ -1943,9 +1943,9 @@ dependencies = [
 
 [[package]]
 name = "rustls"
-version = "0.23.38"
+version = "0.23.40"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "69f9466fb2c14ea04357e91413efb882e2a6d4a406e625449bc0a5d360d53a21"
+checksum = "ef86cd5876211988985292b91c96a8f2d298df24e75989a43a3c73f2d4d8168b"
 dependencies = [
  "aws-lc-rs",
  "log",
