@@ -1,0 +1,35 @@
+[Unit]
+Description=Arcpanel Agent
+After=network.target nginx.service
+Wants=nginx.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/arc-agent
+ExecStartPost=/bin/sh -c 'sleep 1 && chgrp www-data /var/run/arcpanel/agent.sock 2>/dev/null; chmod 660 /var/run/arcpanel/agent.sock 2>/dev/null; true'
+Restart=always
+RestartSec=5
+StartLimitBurst=5
+StartLimitIntervalSec=60
+Environment=RUST_LOG=info
+RuntimeDirectory=arcpanel
+ReadWritePaths=/etc/nginx /etc/arcpanel /var/run/arcpanel /var/backups/arcpanel /var/lib/arcpanel /var/www /var/log /etc/letsencrypt
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictNamespaces=~user
+MemoryMax=512M
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

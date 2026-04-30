@@ -1,0 +1,48 @@
+# Rust build artifacts
+panel/agent/target/
+panel/backend/target/
+panel/cli/target/
+
+# Node.js
+panel/frontend/node_modules/
+panel/frontend/dist/
+website/client/node_modules/
+website/client/dist/
+website/server/node_modules/
+
+# Environment files
+.env
+*.env
+!api.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# SSL/TLS material
+*.pem
+*.key
+*.cert
+*.crt
+!panel/agent/src/**
+
+# Databases
+*.sqlite
+*.db
+
+# mdBook build output
+docs/book/
+.cargo/
+dist/

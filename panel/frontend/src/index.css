@@ -1,0 +1,1498 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ═══════════════════════════════════════════════════════
+   BASE THEME (Terminal) — @theme defines Tailwind utilities
+   ═══════════════════════════════════════════════════════ */
+
+@theme {
+  /* Harmonized green — darkened for WCAG AA contrast with white text */
+  --color-rust-50:  #f0fdf6;
+  --color-rust-100: #d6fce4;
+  --color-rust-200: #a8f8c4;
+  --color-rust-300: #46ec83;
+  --color-rust-400: #22c55e;
+  --color-rust-500: #16a34a;
+  --color-rust-600: #16a34a;
+  --color-rust-700: #047857;
+  --color-rust-800: #065f46;
+  --color-rust-900: #064e3b;
+
+  /* Harmonized amber — matched to green at S:71 L:45 / S:81 L:60 */
+  --color-warn-400: #ecaf46;
+  --color-warn-500: #c48821;
+  --color-warn-600: #a37019;
+
+  /* Harmonized red — matched to green at S:71 L:45 / S:81 L:60 */
+  --color-danger-400: #ec4646;
+  --color-danger-500: #c42121;
+  --color-danger-600: #a31b1b;
+
+  /* Interactive accent — buttons, links, focus rings */
+  --color-accent-50:  #eef2ff;
+  --color-accent-100: #e0e7ff;
+  --color-accent-200: #c7d2fe;
+  --color-accent-300: #a5b4fc;
+  --color-accent-400: #818cf8;
+  --color-accent-500: #6366f1;
+  --color-accent-600: #4f46e5;
+  --color-accent-700: #4338ca;
+  --color-accent-800: #3730a3;
+  --color-accent-900: #312e81;
+
+  /* Dark surfaces — Zinc-tinted for depth and separation */
+  --color-dark-950: #09090b;
+  --color-dark-900: #111113;
+  --color-dark-800: #18181b;
+  --color-dark-700: #27272a;
+  --color-dark-600: #3f3f46;
+  --color-dark-500: #52525b;
+  --color-dark-400: #84848e;
+  --color-dark-300: #a1a1aa;
+  --color-dark-200: #d4d4d8;
+  --color-dark-100: #e4e4e7;
+  --color-dark-50:  #fafafa;
+
+  /* Typography — all mono */
+  --font-sans: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+
+  /* Square corners — terminal aesthetic */
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+}
+
+/* Base styles — use CSS variables so themes take over */
+body {
+  background-color: var(--color-dark-900);
+  color: var(--color-dark-50);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* CRT scanline effect — Terminal only (overridden by other themes) */
+  background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 3px;
+}
+
+/* Remove scanlines for Glass and Atlas layouts */
+[data-layout="glass"] body,
+[data-layout="atlas"] body {
+  background-image: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   THEME: MIDNIGHT — Deep navy, electric blue, modern SaaS
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="midnight"] {
+  /* Navy surfaces */
+  --color-dark-950: #050a18;
+  --color-dark-900: #0a1628;
+  --color-dark-800: #0f1f3a;
+  --color-dark-700: #182d50;
+  --color-dark-600: #243d66;
+  --color-dark-500: #3a5785;
+  --color-dark-400: #7a96bc;
+  --color-dark-300: #8ba6c8;
+  --color-dark-200: #b6cde4;
+  --color-dark-100: #dae6f4;
+  --color-dark-50:  #f0f5fb;
+
+  /* Electric blue accent — darkened for WCAG AA contrast with white text */
+  --color-rust-50:  #eff6ff;
+  --color-rust-100: #dbeafe;
+  --color-rust-200: #bfdbfe;
+  --color-rust-300: #93c5fd;
+  --color-rust-400: #3b82f6;
+  --color-rust-500: #2563eb;
+  --color-rust-600: #2563eb;
+  --color-rust-700: #1d4ed8;
+  --color-rust-800: #1e40af;
+  --color-rust-900: #1e3a8a;
+
+  /* Violet accent */
+  --color-accent-50:  #f5f3ff;
+  --color-accent-100: #ede9fe;
+  --color-accent-200: #ddd6fe;
+  --color-accent-300: #c4b5fd;
+  --color-accent-400: #a78bfa;
+  --color-accent-500: #8b5cf6;
+  --color-accent-600: #7c3aed;
+  --color-accent-700: #6d28d9;
+  --color-accent-800: #5b21b6;
+  --color-accent-900: #4c1d95;
+
+  /* Sans-serif typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Soft rounded corners */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+}
+
+[data-theme="midnight"] body {
+  background-image: none;
+}
+
+[data-theme="midnight"] .logo-glow {
+  text-shadow: 0 0 14px rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="midnight"] .logo-icon-glow {
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.3), 0 0 5px rgba(59, 130, 246, 0.15);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   THEME: ARCTIC — Clean white, teal accent, minimal
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="arctic"] {
+  /* Cool white surfaces (inverted: 950=lightest, 50=darkest) */
+  --color-dark-950: #ffffff;
+  --color-dark-900: #f7f9fc;
+  --color-dark-800: #edf1f7;
+  --color-dark-700: #dce3ed;
+  --color-dark-600: #c3cdd9;
+  --color-dark-500: #8d9bb0;
+  --color-dark-400: #5f7089;
+  --color-dark-300: #3e5068;
+  --color-dark-200: #2a3a50;
+  --color-dark-100: #172030;
+  --color-dark-50:  #0b1220;
+
+  /* Teal accent */
+  --color-rust-50:  #f0fdfa;
+  --color-rust-100: #ccfbf1;
+  --color-rust-200: #99f6e4;
+  --color-rust-300: #5eead4;
+  --color-rust-400: #2dd4bf;
+  --color-rust-500: #0d9488;
+  --color-rust-600: #0f766e;
+  --color-rust-700: #115e59;
+  --color-rust-800: #134e4a;
+  --color-rust-900: #042f2e;
+
+  /* Sky accent */
+  --color-accent-50:  #f0f9ff;
+  --color-accent-100: #e0f2fe;
+  --color-accent-200: #bae6fd;
+  --color-accent-300: #7dd3fc;
+  --color-accent-400: #38bdf8;
+  --color-accent-500: #0ea5e9;
+  --color-accent-600: #0284c7;
+  --color-accent-700: #0369a1;
+  --color-accent-800: #075985;
+  --color-accent-900: #0c4a6e;
+
+  /* Adjusted status colors for light bg */
+  --color-warn-400: #d97706;
+  --color-warn-500: #b45309;
+  --color-warn-600: #92400e;
+
+  --color-danger-400: #dc2626;
+  --color-danger-500: #b91c1c;
+  --color-danger-600: #991b1b;
+
+  /* Sans-serif typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Rounded corners */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+}
+
+[data-theme="arctic"] body {
+  background-image: none;
+}
+
+[data-theme="arctic"] .logo-glow {
+  text-shadow: none;
+}
+
+[data-theme="arctic"] .logo-icon-glow {
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="arctic"] ::-webkit-scrollbar-track {
+  background: var(--color-dark-900);
+  border-left: 1px solid var(--color-dark-600);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   THEME: EMBER — Warm stone, orange accent, premium
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="ember"] {
+  /* Warm stone surfaces */
+  --color-dark-950: #100e0d;
+  --color-dark-900: #1c1917;
+  --color-dark-800: #292524;
+  --color-dark-700: #3b3533;
+  --color-dark-600: #57534e;
+  --color-dark-500: #78716c;
+  --color-dark-400: #a8a29e;
+  --color-dark-300: #d6d3d1;
+  --color-dark-200: #d6c7b7;
+  --color-dark-100: #ebe2d9;
+  --color-dark-50:  #faf7f5;
+
+  /* Orange accent — darkened for WCAG AA contrast with white text */
+  --color-rust-50:  #fff7ed;
+  --color-rust-100: #ffedd5;
+  --color-rust-200: #fed7aa;
+  --color-rust-300: #fdba74;
+  --color-rust-400: #fb923c;
+  --color-rust-500: #ea580c;
+  --color-rust-600: #ea580c;
+  --color-rust-700: #c2410c;
+  --color-rust-800: #9a3412;
+  --color-rust-900: #7c2d12;
+
+  /* Rose accent */
+  --color-accent-50:  #fff1f2;
+  --color-accent-100: #ffe4e6;
+  --color-accent-200: #fecdd3;
+  --color-accent-300: #fda4af;
+  --color-accent-400: #fb7185;
+  --color-accent-500: #f43f5e;
+  --color-accent-600: #e11d48;
+  --color-accent-700: #be123c;
+  --color-accent-800: #9f1239;
+  --color-accent-900: #881337;
+
+  /* Warmer status colors */
+  --color-warn-400: #fbbf24;
+  --color-warn-500: #d4a017;
+  --color-warn-600: #b08a12;
+
+  /* Sans-serif typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Rounded corners (normalized to match other themes) */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+}
+
+[data-theme="ember"] body {
+  background-image: none;
+}
+
+[data-theme="ember"] .logo-glow {
+  text-shadow: 0 0 14px rgba(249, 115, 22, 0.4);
+}
+
+[data-theme="ember"] .logo-icon-glow {
+  box-shadow: 0 0 18px rgba(249, 115, 22, 0.3), 0 0 5px rgba(249, 115, 22, 0.15);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   THEME: NEXUS — Light SaaS, blue accent, Inter font
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="clean"] {
+  /* Clean white/slate surfaces (inverted: 950=white, 50=near-black) */
+  --color-dark-950: #ffffff;
+  --color-dark-900: #f8fafc;
+  --color-dark-800: #f1f5f9;
+  --color-dark-700: #e2e8f0;
+  --color-dark-600: #cbd5e1;
+  --color-dark-500: #94a3b8;
+  --color-dark-400: #64748b;
+  --color-dark-300: #475569;
+  --color-dark-200: #334155;
+  --color-dark-100: #1e293b;
+  --color-dark-50:  #0f172a;
+
+  /* Blue accent — matches NexusCP sidebar */
+  --color-rust-50:  #eff6ff;
+  --color-rust-100: #dbeafe;
+  --color-rust-200: #bfdbfe;
+  --color-rust-300: #93c5fd;
+  --color-rust-400: #60a5fa;
+  --color-rust-500: #2563eb;
+  --color-rust-600: #1d4ed8;
+  --color-rust-700: #1e40af;
+  --color-rust-800: #1e3a8a;
+  --color-rust-900: #172554;
+
+  /* Blue interactive */
+  --color-accent-50:  #eff6ff;
+  --color-accent-100: #dbeafe;
+  --color-accent-200: #bfdbfe;
+  --color-accent-300: #93c5fd;
+  --color-accent-400: #60a5fa;
+  --color-accent-500: #2563eb;
+  --color-accent-600: #1d4ed8;
+  --color-accent-700: #1e40af;
+  --color-accent-800: #1e3a8a;
+  --color-accent-900: #172554;
+
+  /* Adjusted status colors for light bg */
+  --color-warn-400: #d97706;
+  --color-warn-500: #b45309;
+  --color-warn-600: #92400e;
+
+  --color-danger-400: #dc2626;
+  --color-danger-500: #b91c1c;
+  --color-danger-600: #991b1b;
+
+  /* Inter font — clean SaaS look */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Rounded corners */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+}
+
+[data-theme="clean"] body {
+  background-color: #f9fafb;
+  background-image: none;
+  color: #111827;
+}
+
+[data-theme="clean"] .logo-glow {
+  text-shadow: none;
+}
+
+[data-theme="clean"] .logo-icon-glow {
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Nexus: override dark-theme design language ── */
+
+/* Remove uppercase text transform from headings and labels */
+[data-theme="clean"] .uppercase {
+  text-transform: none !important;
+}
+
+/* Override monospace font everywhere except terminal/code */
+[data-theme="clean"] .font-mono:not([class*="terminal"]):not(code):not(pre):not(kbd) {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Softer borders */
+[data-theme="clean"] [class*="border-dark-"] {
+  border-color: #e2e8f0 !important;
+}
+
+/* Card shadows for depth */
+[data-theme="clean"] [class*="bg-dark-950"] {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Blinking cursor hidden in nexus */
+[data-theme="clean"] .blinking-cursor {
+  display: none;
+}
+
+/* Scanlines hidden */
+[data-theme="clean"] .typewriter {
+  border-right-color: transparent;
+  animation: none;
+}
+
+/* Scrollbar — light style */
+[data-theme="clean"] ::-webkit-scrollbar-track {
+  background: #f9fafb;
+  border-left: 1px solid #e5e7eb;
+}
+
+[data-theme="clean"] ::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: var(--radius-xs);
+}
+
+[data-theme="clean"] ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Nexus: elevated cards get light shadow instead of dark */
+[data-theme="clean"] .card-elevated {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Nexus: metric cards - white bg with blue tint border */
+[data-theme="clean"] main [class*="shadow-lg"] {
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  border-color: #dbeafe !important;
+}
+
+/* Nexus: sidebar white bg with subtle right border */
+[data-theme="clean"] aside {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
+}
+
+/* Nexus: active nav item - blue tint instead of rust */
+[data-theme="clean"] aside a [class*="bg-rust-500\\/10"] {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+}
+
+/* Selection — indigo */
+[data-theme="clean"] ::selection {
+  background: rgba(37, 99, 235, 0.2);
+  color: #1f2937;
+}
+
+/* Focus rings — indigo */
+[data-theme="clean"] *:focus-visible {
+  outline-color: #2563eb;
+}
+
+[data-theme="clean"] input:focus-visible,
+[data-theme="clean"] textarea:focus-visible,
+[data-theme="clean"] select:focus-visible {
+  outline-color: #2563eb;
+}
+
+/* Form elements — light */
+[data-theme="clean"] input,
+[data-theme="clean"] select,
+[data-theme="clean"] textarea {
+  background-color: #ffffff;
+  color: #111827;
+  border-color: #d1d5db;
+}
+
+[data-theme="clean"] input::placeholder,
+[data-theme="clean"] textarea::placeholder {
+  color: #9ca3af;
+}
+
+[data-theme="clean"] select {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+}
+
+/* Hover lift — softer shadow for light bg */
+[data-theme="clean"] .hover-lift:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Nexus: page structure overrides ────────────────────
+   Makes cards, tables, metrics, badges look SaaS-native
+   rather than "inverted dark theme".
+   ─────────────────────────────────────────────────────── */
+
+/* Cards/panels in content area: white bg, subtle border, rounded, light shadow */
+[data-theme="clean"] main [class*="bg-dark-950"],
+[data-theme="clean"] main [class*="bg-dark-900"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+/* Inner card tint in content area */
+[data-theme="clean"] main [class*="bg-dark-800"] {
+  background-color: #f9fafb !important;
+}
+
+/* Round all bordered containers in content area */
+[data-theme="clean"] main [class*="border-dark-"] {
+  border-radius: var(--radius-lg);
+}
+
+/* ── Nexus: Modal overrides — fixed overlays inside <main> need proper contrast ── */
+[data-theme="clean"] .dp-modal {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+[data-theme="clean"] .dp-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="clean"] .dp-modal input,
+[data-theme="clean"] .dp-modal select,
+[data-theme="clean"] .dp-modal textarea {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #111827 !important;
+}
+
+[data-theme="clean"] .dp-modal input::placeholder,
+[data-theme="clean"] .dp-modal textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+[data-theme="clean"] .dp-modal label {
+  color: #374151 !important;
+}
+
+[data-theme="clean"] .dp-modal h2,
+[data-theme="clean"] .dp-modal h3 {
+  color: #111827 !important;
+}
+
+[data-theme="clean"] .dp-modal p,
+[data-theme="clean"] .dp-modal span {
+  color: #4b5563;
+}
+
+[data-theme="clean"] .dp-modal [class*="border-dark-"] {
+  border-color: #e5e7eb !important;
+}
+
+[data-theme="clean"] .dp-modal [class*="text-dark-100"],
+[data-theme="clean"] .dp-modal [class*="text-dark-50"] {
+  color: #111827 !important;
+}
+
+[data-theme="clean"] .dp-modal [class*="text-dark-200"],
+[data-theme="clean"] .dp-modal [class*="text-dark-300"] {
+  color: #4b5563 !important;
+}
+
+[data-theme="clean"] .dp-modal [class*="text-dark-400"] {
+  color: #6b7280 !important;
+}
+
+/* Prevent rounding on table internals and nested dividers */
+[data-theme="clean"] td,
+[data-theme="clean"] th,
+[data-theme="clean"] tr,
+[data-theme="clean"] thead,
+[data-theme="clean"] tbody,
+[data-theme="clean"] main [class*="divide-"] > * {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Keep table wrapper containers rounded */
+[data-theme="clean"] main [class*="overflow-hidden"][class*="border-dark-"],
+[data-theme="clean"] main [class*="overflow-x-auto"] {
+  border-radius: var(--radius-lg);
+}
+
+/* Table headers — clean light style */
+[data-theme="clean"] thead {
+  background-color: #f9fafb !important;
+}
+
+[data-theme="clean"] thead th {
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+/* Table row dividers — softer */
+[data-theme="clean"] tbody tr {
+  border-color: #f3f4f6 !important;
+}
+
+/* Table row hover — light indigo tint */
+[data-theme="clean"] tbody tr:hover {
+  background-color: #eff6ff !important;
+}
+
+/* Status badges & tinted backgrounds — Nexus style (softer blue tint) */
+[data-theme="clean"] [class*="bg-rust-500/15"],
+[data-theme="clean"] [class*="bg-rust-500/10"],
+[data-theme="clean"] [class*="bg-rust-500/20"],
+[data-theme="clean"] [class*="bg-rust-500/5"] {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+}
+
+/* Buttons — indigo primary, clean secondary.
+   IMPORTANT: This also matches tinted classes (bg-rust-500/10 contains "bg-rust-500").
+   The tinted override rules below MUST come after this rule. */
+[data-theme="clean"] button[class*="bg-rust-500"],
+[data-theme="clean"] button[class*="bg-rust-600"],
+[data-theme="clean"] a[class*="bg-rust-500"] {
+  background-color: #2563eb !important;
+  color: white !important;
+  border-radius: var(--radius-md) !important;
+}
+
+[data-theme="clean"] button[class*="bg-rust-500"]:hover,
+[data-theme="clean"] button[class*="bg-rust-600"]:hover {
+  background-color: #1d4ed8 !important;
+}
+
+/* Tinted selection buttons — override solid button rule above.
+   bg-rust-500/10, /15, /20 are light tints, NOT solid backgrounds.
+   Re-apply tint styling with same specificity (last rule wins). */
+[data-theme="clean"] button[class*="bg-rust-500/10"],
+[data-theme="clean"] button[class*="bg-rust-500/15"],
+[data-theme="clean"] button[class*="bg-rust-500/20"] {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  color: #1e40af !important;
+  border-color: #93c5fd !important;
+}
+
+[data-theme="clean"] button[class*="bg-rust-500/10"]:hover,
+[data-theme="clean"] button[class*="bg-rust-500/15"]:hover,
+[data-theme="clean"] button[class*="bg-rust-500/20"]:hover {
+  background-color: rgba(37, 99, 235, 0.12) !important;
+}
+
+/* Ensure child text in tinted selection cards is readable */
+[data-theme="clean"] button[class*="bg-rust-500/10"] [class*="text-rust-"],
+[data-theme="clean"] button[class*="bg-rust-500/15"] [class*="text-rust-"],
+[data-theme="clean"] button[class*="bg-rust-500/10"] .font-bold,
+[data-theme="clean"] button[class*="bg-rust-500/15"] .font-bold {
+  color: #1e40af !important;
+}
+
+[data-theme="clean"] button[class*="bg-rust-500/10"] [class*="text-dark-400"],
+[data-theme="clean"] button[class*="bg-rust-500/15"] [class*="text-dark-400"] {
+  color: #6b7280 !important;
+}
+
+/* Tinted anchor links (non-button) — same treatment */
+[data-theme="clean"] a[class*="bg-rust-500/10"],
+[data-theme="clean"] a[class*="bg-rust-500/15"] {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  color: #1e40af !important;
+}
+
+/* Accent-tinted toggles — ensure readable in Nexus */
+[data-theme="clean"] [class*="bg-accent-500/15"],
+[data-theme="clean"] [class*="bg-accent-500/10"] {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+}
+
+[data-theme="clean"] [class*="text-accent-400"] {
+  color: #2563eb !important;
+}
+
+/* Secondary/outline buttons */
+[data-theme="clean"] button[class*="border-dark-"] {
+  border-color: #d1d5db !important;
+  border-radius: var(--radius-md) !important;
+  background-color: #ffffff !important;
+}
+
+[data-theme="clean"] button[class*="border-dark-"]:hover {
+  border-color: #2563eb !important;
+  background-color: #eff6ff !important;
+}
+
+/* Action bar buttons (Customize, Deploy App, etc.) */
+[data-theme="clean"] button[class*="bg-dark-700"],
+[data-theme="clean"] button[class*="bg-dark-800"] {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: var(--radius-md) !important;
+}
+
+[data-theme="clean"] button[class*="bg-dark-700"]:hover,
+[data-theme="clean"] button[class*="bg-dark-800"]:hover {
+  background-color: #eff6ff !important;
+  border-color: #2563eb !important;
+}
+
+/* Danger button (Reboot) keeps red */
+[data-theme="clean"] button[class*="bg-danger-"],
+[data-theme="clean"] button[class*="text-danger-"] {
+  border-radius: var(--radius-md) !important;
+}
+
+/* Progress bars — blue (catch all thin bar variants) */
+[data-theme="clean"] [class*="bg-rust-500"][class*="h-2"],
+[data-theme="clean"] [class*="bg-rust-500"][class*="h-1"],
+[data-theme="clean"] [class*="bg-dark-100"][class*="h-2"],
+[data-theme="clean"] [class*="bg-dark-50"][class*="h-2"] {
+  background-color: #2563eb !important;
+}
+
+/* Text links that use rust color — make blue */
+[data-theme="clean"] [class*="text-rust-400"],
+[data-theme="clean"] [class*="text-rust-500"],
+[data-theme="clean"] a[class*="text-rust-"] {
+  color: #2563eb !important;
+}
+
+[data-theme="clean"] [class*="text-rust-"]:hover {
+  color: #1d4ed8 !important;
+}
+
+/* Active tab underlines — indigo */
+[data-theme="clean"] [class*="border-rust-500"] {
+  border-color: #2563eb !important;
+}
+
+/* Warning progress bars — softer amber */
+[data-theme="clean"] [class*="bg-warn-500"][class*="h-2"],
+[data-theme="clean"] [class*="bg-warn-500"][class*="h-1"],
+[data-theme="clean"] [class*="bg-warn-400"][class*="h-2"] {
+  background-color: #f59e0b !important;
+}
+
+/* Activity badges — softer */
+[data-theme="clean"] [class*="bg-danger-500\\/15"] {
+  background-color: rgba(220, 38, 38, 0.08) !important;
+}
+
+[data-theme="clean"] [class*="bg-warn-500\\/15"] {
+  background-color: rgba(217, 119, 6, 0.08) !important;
+}
+
+/* Sparkline chart containers — white bg */
+[data-theme="clean"] svg[class*="sparkline"],
+[data-theme="clean"] [class*="h-\\["] svg {
+  background-color: transparent !important;
+}
+
+/* "All Systems Operational" banner — softer indigo tint */
+[data-theme="clean"] [class*="bg-rust-500\\/5"] {
+  background-color: rgba(37, 99, 235, 0.06) !important;
+}
+
+/* Stat grid (Uptime, Sites, Databases, etc.) — add subtle card styling */
+[data-theme="clean"] [class*="grid"] > [class*="text-center"] {
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  border: 1px solid #f3f4f6;
+}
+
+/* Nexus: onboarding completed steps — no opacity wash */
+[data-theme="clean"] main [class*="opacity-60"] {
+  opacity: 0.5;
+}
+
+/* Nexus: status bar cells — light gray bg */
+[data-theme="clean"] [class*="gap-px"] > [class*="bg-dark-800"] {
+  background-color: #ffffff !important;
+}
+
+/* Nexus: progress bar track — light gray */
+[data-theme="clean"] [class*="bg-dark-700"][class*="rounded-full"][class*="overflow-hidden"] {
+  background-color: #e2e8f0 !important;
+}
+
+/* Tracking wider — remove for Nexus (terminal artifact) */
+[data-theme="clean"] [class*="tracking-wider"],
+[data-theme="clean"] [class*="tracking-widest"] {
+  letter-spacing: normal !important;
+}
+
+/* Code/mono blocks in content — light bg */
+[data-theme="clean"] code,
+[data-theme="clean"] pre {
+  background-color: #f3f4f6 !important;
+  color: #1f2937 !important;
+  border-radius: var(--radius-sm);
+}
+
+/* Toggle switches — indigo when active */
+[data-theme="clean"] [class*="bg-rust-500"][role="switch"],
+[data-theme="clean"] button[class*="bg-rust-500"][class*="rounded-full"] {
+  background-color: #2563eb !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   THEME: NEXUS DARK — Premium dark SaaS, blue accent
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="clean-dark"] {
+  /* GitHub-dark inspired surfaces — clear layering for depth */
+  --color-dark-950: #0d1117;  /* page background (darkest) */
+  --color-dark-900: #161b22;  /* sidebar, header, elevated surfaces */
+  --color-dark-800: #1c2333;  /* cards, panels (visibly lighter than bg) */
+  --color-dark-700: #2d333b;  /* borders, dividers */
+  --color-dark-600: #444c56;  /* subtle borders, separators */
+  --color-dark-500: #636e7b;  /* muted text, placeholders */
+  --color-dark-400: #9ca5af;  /* secondary text — lightened for WCAG AA */
+  --color-dark-300: #b1bac4;  /* primary secondary text */
+  --color-dark-200: #d0d7de;  /* strong secondary text */
+  --color-dark-100: #e6edf3;  /* near-white text */
+  --color-dark-50:  #f0f6fc;  /* white text */
+
+  /* Blue accent — darkened for WCAG AA contrast with white text */
+  --color-rust-50:  #eff6ff;
+  --color-rust-100: #dbeafe;
+  --color-rust-200: #bfdbfe;
+  --color-rust-300: #93c5fd;
+  --color-rust-400: #3b82f6;
+  --color-rust-500: #2563eb;
+  --color-rust-600: #1d4ed8;
+  --color-rust-700: #1d4ed8;
+  --color-rust-800: #1e40af;
+  --color-rust-900: #1e3a8a;
+
+  /* Blue interactive */
+  --color-accent-50:  #eff6ff;
+  --color-accent-100: #dbeafe;
+  --color-accent-200: #bfdbfe;
+  --color-accent-300: #93c5fd;
+  --color-accent-400: #60a5fa;
+  --color-accent-500: #3b82f6;
+  --color-accent-600: #2563eb;
+  --color-accent-700: #1d4ed8;
+  --color-accent-800: #1e40af;
+  --color-accent-900: #1e3a8a;
+
+  /* Sans-serif typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Rounded corners — matches Nexus light */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+}
+
+[data-theme="clean-dark"] body {
+  background-image: none;
+}
+
+[data-theme="clean-dark"] .logo-glow {
+  text-shadow: 0 0 14px rgba(59, 130, 246, 0.3);
+}
+
+[data-theme="clean-dark"] .logo-icon-glow {
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.25), 0 0 5px rgba(59, 130, 246, 0.1);
+}
+
+/* Nexus Dark: hide terminal artifacts */
+[data-theme="clean-dark"] .blinking-cursor { display: none; }
+[data-theme="clean-dark"] .typewriter { border-right-color: transparent; animation: none; }
+
+/* Nexus Dark: override uppercase/tracking for SaaS feel */
+[data-theme="clean-dark"] .uppercase { text-transform: none !important; }
+[data-theme="clean-dark"] .font-mono:not([class*="terminal"]):not(code):not(pre):not(kbd) {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+[data-theme="clean-dark"] [class*="tracking-wider"],
+[data-theme="clean-dark"] [class*="tracking-widest"] {
+  letter-spacing: normal !important;
+}
+
+/* ── Clean-Dark: rounding & structural overrides (parity with Clean) ── */
+
+/* Cards/panels in content area: enforce round corners */
+[data-theme="clean-dark"] main [class*="bg-dark-950"],
+[data-theme="clean-dark"] main [class*="bg-dark-900"] {
+  border-radius: var(--radius-lg) !important;
+}
+
+/* Round all bordered containers in content area */
+[data-theme="clean-dark"] main [class*="border-dark-"] {
+  border-radius: var(--radius-lg);
+}
+
+/* Modal — rounded */
+[data-theme="clean-dark"] .dp-modal {
+  border-radius: var(--radius-lg) !important;
+}
+
+/* Prevent rounding on table internals and nested dividers */
+[data-theme="clean-dark"] td,
+[data-theme="clean-dark"] th,
+[data-theme="clean-dark"] tr,
+[data-theme="clean-dark"] thead,
+[data-theme="clean-dark"] tbody,
+[data-theme="clean-dark"] main [class*="divide-"] > * {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Keep table wrapper containers rounded */
+[data-theme="clean-dark"] main [class*="overflow-hidden"][class*="border-dark-"],
+[data-theme="clean-dark"] main [class*="overflow-x-auto"] {
+  border-radius: var(--radius-lg);
+}
+
+/* Table headers — slightly lighter bg for contrast */
+[data-theme="clean-dark"] thead {
+  background-color: var(--color-dark-900) !important;
+}
+
+[data-theme="clean-dark"] thead th {
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+/* Table row hover */
+[data-theme="clean-dark"] tbody tr:hover {
+  background-color: var(--color-dark-800) !important;
+}
+
+/* Buttons — rounded */
+[data-theme="clean-dark"] button[class*="bg-rust-500"],
+[data-theme="clean-dark"] button[class*="bg-rust-600"],
+[data-theme="clean-dark"] a[class*="bg-rust-500"] {
+  border-radius: var(--radius-md) !important;
+}
+
+/* Secondary/outline buttons */
+[data-theme="clean-dark"] button[class*="border-dark-"] {
+  border-radius: var(--radius-md) !important;
+}
+
+/* Action bar buttons */
+[data-theme="clean-dark"] button[class*="bg-dark-700"],
+[data-theme="clean-dark"] button[class*="bg-dark-800"] {
+  border-radius: var(--radius-md) !important;
+}
+
+/* Danger button */
+[data-theme="clean-dark"] button[class*="bg-danger-"],
+[data-theme="clean-dark"] button[class*="text-danger-"] {
+  border-radius: var(--radius-md) !important;
+}
+
+/* Elevated cards — refined shadow */
+[data-theme="clean-dark"] .card-elevated {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Hover lift — refined */
+[data-theme="clean-dark"] .hover-lift:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Scrollbar — subtle dark */
+[data-theme="clean-dark"] ::-webkit-scrollbar-track {
+  background: var(--color-dark-950);
+  border-left: 1px solid var(--color-dark-700);
+}
+
+[data-theme="clean-dark"] ::-webkit-scrollbar-thumb {
+  background: var(--color-dark-600);
+  border-radius: var(--radius-xs);
+}
+
+[data-theme="clean-dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dark-500);
+}
+
+/* Selection */
+[data-theme="clean-dark"] ::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: #f0f6fc;
+}
+
+/* Focus rings */
+[data-theme="clean-dark"] *:focus-visible {
+  outline-color: #3b82f6;
+}
+
+[data-theme="clean-dark"] input:focus-visible,
+[data-theme="clean-dark"] textarea:focus-visible,
+[data-theme="clean-dark"] select:focus-visible {
+  outline-color: #3b82f6;
+}
+
+/* Progress bar track */
+[data-theme="clean-dark"] [class*="bg-dark-700"][class*="rounded-full"][class*="overflow-hidden"] {
+  background-color: var(--color-dark-600) !important;
+}
+
+/* Code blocks */
+[data-theme="clean-dark"] code,
+[data-theme="clean-dark"] pre {
+  border-radius: var(--radius-sm);
+}
+
+/* Page header — subtle border */
+[data-theme="clean-dark"] .page-header {
+  border-color: var(--color-dark-700);
+}
+
+/* Midnight: clean SaaS typography */
+[data-theme="midnight"] .font-mono:not([class*="terminal"]):not(code):not(pre):not(kbd) {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+[data-theme="midnight"] .uppercase {
+  text-transform: none !important;
+}
+[data-theme="midnight"] [class*="tracking-wider"],
+[data-theme="midnight"] [class*="tracking-widest"] {
+  letter-spacing: normal !important;
+}
+
+/* Arctic: clean SaaS typography */
+[data-theme="arctic"] .font-mono:not([class*="terminal"]):not(code):not(pre):not(kbd) {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+[data-theme="arctic"] .uppercase {
+  text-transform: none !important;
+}
+[data-theme="arctic"] [class*="tracking-wider"],
+[data-theme="arctic"] [class*="tracking-widest"] {
+  letter-spacing: normal !important;
+}
+
+/* Ember: warm SaaS typography */
+[data-theme="ember"] .font-mono:not([class*="terminal"]):not(code):not(pre):not(kbd) {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+[data-theme="ember"] .uppercase {
+  text-transform: none !important;
+}
+[data-theme="ember"] [class*="tracking-wider"],
+[data-theme="ember"] [class*="tracking-widest"] {
+  letter-spacing: normal !important;
+}
+
+/* Slightly larger body text for sans-serif themes */
+[data-theme="midnight"] body,
+[data-theme="arctic"] body,
+[data-theme="ember"] body,
+[data-theme="clean"] body,
+[data-theme="clean-dark"] body {
+  font-size: 0.9375rem; /* 15px instead of 14px for better readability with Inter */
+}
+
+/* But keep small text (.text-sm, .text-xs) at their Tailwind sizes */
+[data-theme="midnight"] .text-sm,
+[data-theme="arctic"] .text-sm,
+[data-theme="ember"] .text-sm,
+[data-theme="clean"] .text-sm,
+[data-theme="clean-dark"] .text-sm {
+  font-size: 0.875rem;
+}
+
+[data-theme="midnight"] .text-xs,
+[data-theme="arctic"] .text-xs,
+[data-theme="ember"] .text-xs,
+[data-theme="clean"] .text-xs,
+[data-theme="clean-dark"] .text-xs {
+  font-size: 0.75rem;
+}
+
+/* ── Light theme overrides — table/card/elevation ── */
+
+[data-theme="arctic"] tr.table-row-hover:hover,
+[data-theme="clean"] tr.table-row-hover:hover {
+  background-color: var(--color-dark-800) !important;
+}
+
+[data-theme="arctic"] .card-interactive:hover,
+[data-theme="clean"] .card-interactive:hover {
+  border-color: var(--color-dark-600);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="arctic"] .elevation-1,
+[data-theme="arctic"] .elevation-2,
+[data-theme="clean"] .elevation-1,
+[data-theme="clean"] .elevation-2 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   SHARED RULES — form elements, scrollbar, focus, etc.
+   ═══════════════════════════════════════════════════════ */
+
+/* Form elements */
+input, select, textarea {
+  background-color: var(--color-dark-900);
+  color: var(--color-dark-50);
+  border-color: var(--color-dark-500);
+}
+
+/* Native select */
+select {
+  appearance: none;
+  background-color: var(--color-dark-800);
+  border: 1px solid var(--color-dark-600);
+  border-radius: var(--radius-md);
+  padding: 0.625rem 2.5rem 0.625rem 0.75rem;
+  color: var(--color-dark-100);
+  font-size: 0.875rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2371717a' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--color-dark-400);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-dark-300);
+}
+
+/* Sidebar scroll fade — hints that more items exist below the fold */
+.sidebar-scroll-fade {
+  mask-image: linear-gradient(to bottom, black calc(100% - 32px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 32px), transparent 100%);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark-900);
+  border-left: 1px solid var(--color-dark-500);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-500);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dark-300);
+}
+
+/* Selection */
+::selection {
+  background: var(--color-rust-500);
+  color: var(--color-dark-900);
+}
+
+/* Focus indicators */
+*:focus-visible {
+  outline: 2px solid var(--color-dark-400);
+  outline-offset: 2px;
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-rust-500);
+  outline-offset: 0px;
+}
+
+/* Logo glow (default = Terminal green) */
+.logo-glow {
+  text-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+}
+
+.logo-icon-glow {
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.3), 0 0 4px rgba(34, 197, 94, 0.15);
+}
+
+/* Blinking cursor animation */
+.blinking-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Page & component animations ── */
+
+/* Fade up on mount */
+.animate-fade-up {
+  animation: fadeUp 0.3s ease-out both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stagger children — add to parent, children get delayed */
+.stagger-children > * {
+  animation: fadeUp 0.3s ease-out both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 360ms; }
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--color-rust-500);
+  animation: typewriter 1.5s steps(30) 0.3s both, blinkCaret 0.8s step-end infinite 1.8s;
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blinkCaret {
+  0%, 100% { border-color: var(--color-rust-500); }
+  50% { border-color: transparent; }
+}
+
+/* Card hover lift */
+.hover-lift {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Elevated card — subtle depth for primary content */
+.card-elevated {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Elevation levels — progressive depth */
+.elevation-1 {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.elevation-2 {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.elevation-3 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Premium card depth for dark themes ──
+   Adds subtle shadow + slightly brighter border on hover
+   to create layered depth instead of flat rectangles */
+[data-theme="terminal"] main [class*="bg-dark-800"][class*="border"],
+[data-theme="terminal"] main [class*="bg-dark-900"][class*="border"],
+[data-theme="midnight"] main [class*="bg-dark-800"][class*="border"],
+[data-theme="midnight"] main [class*="bg-dark-900"][class*="border"],
+[data-theme="ember"] main [class*="bg-dark-800"][class*="border"],
+[data-theme="ember"] main [class*="bg-dark-900"][class*="border"],
+[data-theme="clean-dark"] main [class*="bg-dark-800"][class*="border"],
+[data-theme="clean-dark"] main [class*="bg-dark-900"][class*="border"] {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* ── Progress bar polish ──
+   Round all progress bars, add subtle glow on the fill */
+[class*="rounded-full"][class*="overflow-hidden"][class*="bg-dark-"] [class*="bg-rust-"],
+[class*="rounded-full"][class*="overflow-hidden"][class*="bg-dark-"] [class*="bg-warn-"],
+[class*="rounded-full"][class*="overflow-hidden"][class*="bg-dark-"] [class*="bg-danger-"] {
+  border-radius: 9999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Progress bar glow — accent-colored shadow on the fill bar */
+[data-theme="terminal"] [class*="rounded-full"][class*="overflow-hidden"] [class*="bg-rust-500"] {
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
+}
+[data-theme="midnight"] [class*="rounded-full"][class*="overflow-hidden"] [class*="bg-rust-500"] {
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+[data-theme="ember"] [class*="rounded-full"][class*="overflow-hidden"] [class*="bg-rust-500"] {
+  box-shadow: 0 0 8px rgba(251, 146, 60, 0.3);
+}
+[data-theme="clean-dark"] [class*="rounded-full"][class*="overflow-hidden"] [class*="bg-rust-500"] {
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+[data-theme="arctic"] [class*="rounded-full"][class*="overflow-hidden"] [class*="bg-rust-500"] {
+  box-shadow: 0 0 8px rgba(13, 148, 136, 0.3);
+}
+[data-theme="clean"] [class*="rounded-full"][class*="overflow-hidden"] [class*="bg-rust-500"] {
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+/* ── Bolder status indicators ──
+   Make status dots larger and add subtle glow */
+/* Status dots — per-theme glow colors */
+[data-theme="terminal"] [class*="rounded-full"][class*="bg-rust-"][class*="w-2"] {
+  width: 10px !important;
+  height: 10px !important;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+}
+[data-theme="midnight"] [class*="rounded-full"][class*="bg-rust-"][class*="w-2"] {
+  width: 10px !important;
+  height: 10px !important;
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.4);
+}
+[data-theme="ember"] [class*="rounded-full"][class*="bg-rust-"][class*="w-2"] {
+  width: 10px !important;
+  height: 10px !important;
+  box-shadow: 0 0 6px rgba(251, 146, 60, 0.4);
+}
+[data-theme="arctic"] [class*="rounded-full"][class*="bg-rust-"][class*="w-2"] {
+  width: 10px !important;
+  height: 10px !important;
+  box-shadow: 0 0 6px rgba(13, 148, 136, 0.4);
+}
+[data-theme="clean"] [class*="rounded-full"][class*="bg-rust-"][class*="w-2"] {
+  width: 10px !important;
+  height: 10px !important;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
+}
+[data-theme="clean-dark"] [class*="rounded-full"][class*="bg-rust-"][class*="w-2"] {
+  width: 10px !important;
+  height: 10px !important;
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.4);
+}
+[class*="rounded-full"][class*="bg-danger-"][class*="w-2"] {
+  width: 10px !important;
+  height: 10px !important;
+  box-shadow: 0 0 6px rgba(236, 70, 70, 0.4);
+}
+[class*="rounded-full"][class*="bg-warn-"][class*="w-2"] {
+  width: 10px !important;
+  height: 10px !important;
+  box-shadow: 0 0 6px rgba(236, 175, 70, 0.4);
+}
+
+/* Progress bar upgrade */
+.progress-bar {
+  border-radius: 9999px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-track {
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+/* Table row hover */
+tr.table-row-hover {
+  transition: background-color 0.15s ease;
+}
+tr.table-row-hover:hover {
+  background-color: var(--color-dark-700);
+}
+
+/* Card hover interaction */
+.card-interactive {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.card-interactive:hover {
+  border-color: var(--color-dark-500);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Login page background */
+.login-bg {
+  background-color: var(--color-dark-950);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(var(--login-glow-rgb, 34, 197, 94), 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(var(--login-glow-rgb, 34, 197, 94), 0.04) 0%, transparent 50%);
+}
+
+[data-theme="midnight"] .login-bg {
+  --login-glow-rgb: 59, 130, 246;
+}
+[data-theme="arctic"] .login-bg {
+  background-color: var(--color-dark-900);
+  --login-glow-rgb: 13, 148, 136;
+}
+[data-theme="ember"] .login-bg {
+  --login-glow-rgb: 249, 115, 22;
+}
+[data-theme="clean"] .login-bg {
+  background-color: #f1f5f9;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(37, 99, 235, 0.03) 0%, transparent 50%);
+}
+[data-theme="clean-dark"] .login-bg {
+  --login-glow-rgb: 59, 130, 246;
+}
+
+/* Page header bar */
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-dark-600);
+  background-color: var(--color-dark-900);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .page-header {
+    padding: 1.25rem 2rem;
+  }
+}
+
+.page-header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-dark-50);
+  letter-spacing: 0.025em;
+}
+
+.page-header-subtitle {
+  font-size: 0.8125rem;
+  color: var(--color-dark-300);
+  margin-top: 0.125rem;
+}
+
+[data-theme="clean"] .page-header {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+}
+
+[data-theme="arctic"] .page-header {
+  background-color: var(--color-dark-950);
+  border-color: var(--color-dark-700);
+}
+
+/* Prevent xterm.js from overflowing viewport on mobile */
+.xterm {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+.xterm-viewport, .xterm-screen {
+  max-width: 100% !important;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
