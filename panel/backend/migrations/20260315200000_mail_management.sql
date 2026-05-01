@@ -1,8 +1,8 @@
--- Mail domains managed by DockPanel
+-- Mail domains managed by ArcPanel
 CREATE TABLE IF NOT EXISTS mail_domains (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     domain VARCHAR(255) NOT NULL UNIQUE,
-    dkim_selector VARCHAR(63) NOT NULL DEFAULT 'dockpanel',
+    dkim_selector VARCHAR(63) NOT NULL DEFAULT 'arcpanel',
     dkim_private_key TEXT,
     dkim_public_key TEXT,
     catch_all VARCHAR(255),

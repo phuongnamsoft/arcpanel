@@ -42,7 +42,7 @@ CREATE TRIGGER trg_immutable_audit_log
 
 -- ═══════════════════════════════════════════════════════════════════════
 -- Feature 5: Terminal Session Recordings metadata
--- Actual recordings stored as files in /var/lib/dockpanel/recordings/
+-- Actual recordings stored as files in /var/lib/arcpanel/recordings/
 -- ═══════════════════════════════════════════════════════════════════════
 CREATE TABLE IF NOT EXISTS terminal_recordings (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

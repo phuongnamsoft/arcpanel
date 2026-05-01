@@ -15,7 +15,7 @@ Thanks for your interest in contributing! This guide covers development setup, c
 
 ```bash
 git clone https://github.com/phuongnamsoft/arcpanel.git
-cd dockpanel
+cd arcpanel
 
 # Start PostgreSQL
 docker run -d --name arc-postgres \

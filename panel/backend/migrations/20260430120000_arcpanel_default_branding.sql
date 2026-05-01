@@ -1,6 +1,6 @@
 -- Migrate default product name for installs that still use the old seed.
 UPDATE settings
-SET value = 'Arcpanel', updated_at = NOW()
+SET value = 'ArcPanel', updated_at = NOW()
 WHERE key = 'panel_name' AND value = 'DockPanel';
 
 -- New mail domains default DKIM selector (existing rows unchanged).

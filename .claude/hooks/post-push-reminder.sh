@@ -1,5 +1,5 @@
 #!/bin/bash
-# Post-push gate reminder hook for DockPanel
+# Post-push gate reminder hook for ArcPanel
 # Fires on Stop event — checks if a git push happened and prints reminders
 
 INPUT=$(cat)

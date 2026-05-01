@@ -245,7 +245,7 @@ Arcpanel has undergone seven rounds of security auditing (280+ vulnerabilities f
 ## Development
 
 ```bash
-git clone https://github.com/phuongnamsoft/arcpanel.git && cd dockpanel
+git clone https://github.com/phuongnamsoft/arcpanel.git && cd arcpanel
 
 # Start database
 docker run -d --name arc-postgres \

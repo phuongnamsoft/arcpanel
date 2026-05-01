@@ -111,7 +111,7 @@ fn get_encryption_key(jwt_secret: &str) -> String {
     std::env::var("SECRETS_ENCRYPTION_KEY").unwrap_or_else(|_| {
         use sha2::{Sha256, Digest};
         let mut hasher = Sha256::new();
-        hasher.update(b"dockpanel-secrets-encryption:");
+        hasher.update(b"arcpanel-secrets-encryption:");
         hasher.update(jwt_secret.as_bytes());
         hex::encode(hasher.finalize())
     })
@@ -566,7 +566,7 @@ pub async fn export_vault(
         .bind(vault_id).fetch_all(&state.db).await
         .map_err(|e| internal_error("export vault", e))?;
 
-    // Export with encrypted values (portable — can be imported on another DockPanel with same key)
+    // Export with encrypted values (portable — can be imported on another ArcPanel with same key)
     let secrets_export: Vec<serde_json::Value> = rows.into_iter().map(|r| {
         serde_json::json!({
             "key": r.key,

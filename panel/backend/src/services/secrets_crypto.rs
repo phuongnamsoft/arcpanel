@@ -35,14 +35,14 @@ fn derive_key_legacy(secret: &str, salt: &[u8]) -> [u8; 32] {
 fn derive_key_with_salt(secret: &str, salt: &[u8]) -> [u8; 32] {
     let hk = Hkdf::<Sha256>::new(Some(salt), secret.as_bytes());
     let mut key = [0u8; 32];
-    hk.expand(b"dockpanel-encryption", &mut key)
+    hk.expand(b"arcpanel-encryption", &mut key)
         .expect("HKDF expand failed: output length is valid");
     key
 }
 
 /// Derive an AES-256 key for the Secrets Manager vault.
 fn derive_key(jwt_secret: &str) -> [u8; 32] {
-    derive_key_with_salt(jwt_secret, b"dockpanel-secrets-v1:")
+    derive_key_with_salt(jwt_secret, b"arcpanel-secrets-v1:")
 }
 
 /// Derive an AES-256 key for credential encryption (DB passwords, SMTP, DKIM, etc.).
@@ -51,10 +51,10 @@ fn derive_key(jwt_secret: &str) -> [u8; 32] {
 fn derive_credential_key(jwt_secret: &str) -> [u8; 32] {
     if let Ok(key) = std::env::var("SECRETS_ENCRYPTION_KEY") {
         if !key.is_empty() {
-            return derive_key_with_salt(&key, b"dockpanel-credential-encryption-v1:");
+            return derive_key_with_salt(&key, b"arcpanel-credential-encryption-v1:");
         }
     }
-    derive_key_with_salt(jwt_secret, b"dockpanel-credential-v1:")
+    derive_key_with_salt(jwt_secret, b"arcpanel-credential-v1:")
 }
 
 /// Encrypt a plaintext string. Returns base64-encoded (nonce + ciphertext).
@@ -102,7 +102,7 @@ pub fn decrypt(encrypted_b64: &str, jwt_secret: &str) -> Result<String, String> 
     }
 
     // Fall back to legacy SHA-256 key for data encrypted before HKDF migration
-    let mut legacy_key = derive_key_legacy(jwt_secret, b"dockpanel-secrets-v1:");
+    let mut legacy_key = derive_key_legacy(jwt_secret, b"arcpanel-secrets-v1:");
     let legacy_cipher = Aes256Gcm::new_from_slice(&legacy_key)
         .map_err(|e| { legacy_key.zeroize(); format!("Cipher init failed: {e}") })?;
     legacy_key.zeroize();
@@ -160,7 +160,7 @@ pub fn decrypt_credential(encrypted_b64: &str, jwt_secret: &str) -> Result<Strin
     }
 
     // Fall back to legacy SHA-256 key (jwt_secret with credential salt)
-    let mut legacy_key = derive_key_legacy(jwt_secret, b"dockpanel-credential-v1:");
+    let mut legacy_key = derive_key_legacy(jwt_secret, b"arcpanel-credential-v1:");
     let legacy_cipher = Aes256Gcm::new_from_slice(&legacy_key)
         .map_err(|e| { legacy_key.zeroize(); format!("Cipher init failed: {e}") })?;
     legacy_key.zeroize();
@@ -173,7 +173,7 @@ pub fn decrypt_credential(encrypted_b64: &str, jwt_secret: &str) -> Result<Strin
     // Fall back to legacy SHA-256 key with SECRETS_ENCRYPTION_KEY env var
     if let Ok(env_key) = std::env::var("SECRETS_ENCRYPTION_KEY") {
         if !env_key.is_empty() {
-            let mut env_legacy_key = derive_key_legacy(&env_key, b"dockpanel-credential-encryption-v1:");
+            let mut env_legacy_key = derive_key_legacy(&env_key, b"arcpanel-credential-encryption-v1:");
             let env_legacy_cipher = Aes256Gcm::new_from_slice(&env_legacy_key)
                 .map_err(|e| { env_legacy_key.zeroize(); format!("Cipher init failed: {e}") })?;
             env_legacy_key.zeroize();

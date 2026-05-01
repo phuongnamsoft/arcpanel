@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS settings (
 
 -- Default settings
 INSERT INTO settings (key, value) VALUES
-    ('panel_name', 'DockPanel'),
+    ('panel_name', 'ArcPanel'),
     ('smtp_host', ''),
     ('smtp_port', '587'),
     ('smtp_user', ''),
