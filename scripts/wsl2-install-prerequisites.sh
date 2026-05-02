@@ -50,9 +50,45 @@ fi
 
 if ! docker info &>/dev/null; then
   log ""
-  log "Cannot talk to the Docker daemon. Start Docker Desktop, enable WSL integration, or add your user to the 'docker' group:"
-  log "  sudo usermod -aG docker \"\$USER\""
-  log "  (then sign out of WSL and back in)"
+  log "Cannot talk to the Docker daemon."
+  _docker_err="$(docker info 2>&1 || true)"
+  log "docker info: ${_docker_err}"
+  log ""
+
+  _in_docker_group=false
+  if id -nG 2>/dev/null | tr ' ' '\n' | grep -qx docker; then
+    _in_docker_group=true
+  fi
+
+  if echo "${_docker_err}" | grep -qi 'permission denied'; then
+    log "Diagnosis: permission denied on the Docker socket — your user must be in the **docker** group."
+    if [ "${_in_docker_group}" != true ]; then
+      log ""
+      log "Run (then restart WSL / open a new terminal):"
+      log "  sudo usermod -aG docker \"\$USER\""
+      log "Exit all WSL windows completely, start Ubuntu again, verify:  groups   (should list docker)"
+      log "One-session workaround (no logout):  newgrp docker"
+    else
+      log "You appear in the docker group already — try: newgrp docker  OR  full WSL restart (wsl --shutdown)."
+    fi
+    log ""
+  fi
+
+  log "Docker Desktop on Windows (if you use it):"
+  log "  1. Start Docker Desktop and wait until it is Running."
+  log "  2. Settings → Resources → WSL integration → enable this distro."
+  log "  3. Apply / Restart; optional:  wsl --shutdown  from PowerShell, then reopen WSL."
+  log ""
+  log "Docker Engine inside WSL only (apt install docker.io):"
+  log "  sudo service docker start    # or: sudo systemctl start docker"
+  log "  sudo usermod -aG docker \"\$USER\"   # then new WSL session as above"
+  log ""
+  if [ -S /var/run/docker.sock ]; then
+    log "Found /var/run/docker.sock — $(ls -la /var/run/docker.sock 2>/dev/null || true)"
+    log "Socket is typically root:docker (e.g. srw-rw----); only root and group **docker** can connect."
+  else
+    log "No /var/run/docker.sock — enable Docker Desktop WSL integration or start the docker service."
+  fi
   die "docker daemon unreachable"
 fi
 

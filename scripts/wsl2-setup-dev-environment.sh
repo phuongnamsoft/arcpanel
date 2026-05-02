@@ -33,7 +33,8 @@ if ! command -v docker &>/dev/null; then
   die "docker not found; complete scripts/wsl2-install-prerequisites.sh and Docker Desktop setup first"
 fi
 if ! docker info &>/dev/null; then
-  die "cannot connect to Docker daemon"
+  log "docker info failed: $(docker info 2>&1 || true)"
+  die "cannot connect to Docker daemon — fix Docker Desktop WSL integration or start docker service (see scripts/wsl2-install-prerequisites.sh messages)"
 fi
 
 ensure_postgres_container() {
