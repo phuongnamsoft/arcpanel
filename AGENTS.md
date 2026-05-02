@@ -36,10 +36,6 @@ Most skills use `.claude/skills/<name>/SKILL.md` as the entry point. **react-bes
 | Implementation plans — write a plan from specs before touching code | `.claude/skills/writing-plans/SKILL.md` |
 | Execute a written plan — separate session, review checkpoints | `.claude/skills/executing-plans/SKILL.md` |
 | Execute a plan in-session — independent tasks via subagents + review | `.claude/skills/subagent-driven-development/SKILL.md` |
-| OpenSpec — explore ideas and requirements (no implementation) | `.claude/skills/openspec-explore/SKILL.md` |
-| OpenSpec — propose a change (proposal, design, tasks) | `.claude/skills/openspec-propose/SKILL.md` |
-| OpenSpec — implement tasks from an active change | `.claude/skills/openspec-apply-change/SKILL.md` |
-| OpenSpec — archive a completed change | `.claude/skills/openspec-archive-change/SKILL.md` |
 | Meta — create or improve agent skills | `.claude/skills/writing-skills/SKILL.md` |
 
 **Stack caveat:** The frontend is a **Vite SPA**, not Next.js. Apply **senior-frontend** and **react-best-practices** to client-side React, routing, and API usage. Skip or adapt guidance that assumes React Server Components, the App Router, or Next-specific APIs unless you are explicitly introducing that stack.
