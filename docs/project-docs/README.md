@@ -8,6 +8,7 @@ This folder holds **long-form technical references** for each major codebase are
 |----------|--------|---------------------|
 | [features.md](./features.md) | **Product capabilities** — curated list aligned with [`website/docs/`](../../website/docs/) (guides, getting started, references) | Need a **feature-oriented overview** before reading implementation docs |
 | [folder-structure.md](./folder-structure.md) | Whole repo — directories, crates, `website/`, `scripts/`, `docs/`, `tests/`, `openspec/` | Need a **structural map** before diving into a subtree |
+| [development-local-setup-wsl2.md](./development-local-setup-wsl2.md) | Local dev on **Windows WSL2** — Docker Postgres, `/etc/arcpanel/api.env`, agent / API / Vite, ports, performance, troubleshooting | **Run the `panel/` stack** on Windows (Ubuntu in WSL2) before changing code |
 | [agent.md](./agent.md) | `panel/agent/` — `arc-agent`, Tokio/Axum, Unix socket, Docker/ACME/host work | Operate or extend the **host agent**, phone-home, or agent TLS |
 | [backend.md](./backend.md) | `panel/backend/` — `arc-api`, PostgreSQL, auth, email, agent orchestration | Work on the **control-plane API**, migrations, or sessions |
 | [cli.md](./cli.md) | `panel/cli/` — `arc`, clap, HTTP over UDS to the agent | Build **operator CLI** flows or automation against the agent socket |
