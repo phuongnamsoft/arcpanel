@@ -6,6 +6,7 @@ This folder holds **long-form technical references** for each major codebase are
 
 | Document | Scope | Start here if you… |
 |----------|--------|---------------------|
+| [features.md](./features.md) | **Product capabilities** — curated list aligned with [`website/docs/`](../../website/docs/) (guides, getting started, references) | Need a **feature-oriented overview** before reading implementation docs |
 | [folder-structure.md](./folder-structure.md) | Whole repo — directories, crates, `website/`, `scripts/`, `docs/`, `tests/`, `openspec/` | Need a **structural map** before diving into a subtree |
 | [agent.md](./agent.md) | `panel/agent/` — `arc-agent`, Tokio/Axum, Unix socket, Docker/ACME/host work | Operate or extend the **host agent**, phone-home, or agent TLS |
 | [backend.md](./backend.md) | `panel/backend/` — `arc-api`, PostgreSQL, auth, email, agent orchestration | Work on the **control-plane API**, migrations, or sessions |
