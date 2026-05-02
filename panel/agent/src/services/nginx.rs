@@ -286,14 +286,17 @@ pub fn write_php_pool_config(
     php_version: &str,
     memory_mb: u32,
     max_workers: u32,
+    upload_mb: u32,
+    max_execution_time: u32,
 ) -> Result<(), String> {
     let pool_dir = format!("/etc/php/{php_version}/fpm/pool.d");
     if !std::path::Path::new(&pool_dir).exists() {
-        return Ok(()); // PHP not installed — skip silently
+        return Ok(());
     }
 
-    // Sanitize domain for use as pool name (replace dots with underscores)
     let pool_name = domain.replace('.', "_");
+    let start = std::cmp::min(2, max_workers);
+    let spare = std::cmp::min(3, max_workers);
 
     let config = format!(
         r#"[{pool_name}]
@@ -311,20 +314,21 @@ pm.min_spare_servers = 1
 pm.max_spare_servers = {spare}
 pm.max_requests = 500
 
-php_admin_value[memory_limit] = {memory_mb}M
-php_admin_value[upload_max_filesize] = 64M
-php_admin_value[post_max_size] = 64M
-php_admin_value[max_execution_time] = 300
-"#,
-        start = std::cmp::min(2, max_workers),
-        spare = std::cmp::min(3, max_workers),
+php_admin_value[memory_limit]        = {memory_mb}M
+php_admin_value[upload_max_filesize] = {upload_mb}M
+php_admin_value[post_max_size]       = {upload_mb}M
+php_admin_value[max_execution_time]  = {max_execution_time}
+"#
     );
 
     let pool_path = format!("{pool_dir}/{pool_name}.conf");
     std::fs::write(&pool_path, &config)
         .map_err(|e| format!("Failed to write FPM pool config: {e}"))?;
 
-    tracing::info!("PHP-FPM pool config written: {pool_path} (workers={max_workers}, memory={memory_mb}M)");
+    tracing::info!(
+        "PHP-FPM pool config written: {pool_path} \
+         (workers={max_workers}, memory={memory_mb}M, upload={upload_mb}M, max_exec={max_execution_time}s)"
+    );
     Ok(())
 }
 

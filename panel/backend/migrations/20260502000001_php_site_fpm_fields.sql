@@ -1,0 +1,3 @@
+ALTER TABLE sites
+    ADD COLUMN IF NOT EXISTS php_max_execution_time INT NOT NULL DEFAULT 300,
+    ADD COLUMN IF NOT EXISTS php_upload_mb          INT NOT NULL DEFAULT 64;

@@ -35,6 +35,7 @@ export default function AtlasLayout() {
 
     const labels: Record<string, string> = {
       sites: "Sites",
+      php: "PHP",
       databases: "Databases",
       apps: "Docker Apps",
       "git-deploys": "Git Deploy",

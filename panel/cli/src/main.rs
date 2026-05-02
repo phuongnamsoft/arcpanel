@@ -361,8 +361,57 @@ enum FirewallCmd {
 enum PhpCmd {
     /// Install a PHP version
     Install {
-        /// PHP version (8.1, 8.2, 8.3, 8.4)
+        /// PHP version (5.6, 7.4, 8.0, 8.1, 8.2, 8.3, 8.4)
         version: String,
+        /// Install method: native (default) or docker
+        #[arg(long, default_value = "native")]
+        method: String,
+    },
+    /// Remove a PHP version
+    Remove {
+        /// PHP version
+        version: String,
+        /// Skip confirmation prompt
+        #[arg(long)]
+        force: bool,
+    },
+    /// Show PHP version info (binary version, ini values, loaded extensions)
+    Info {
+        /// PHP version
+        version: String,
+    },
+    /// Manage PHP extensions
+    Extensions {
+        #[command(subcommand)]
+        command: ExtensionsCmd,
+    },
+    /// Reload PHP-FPM for a version
+    FpmReload {
+        /// PHP version
+        version: String,
+    },
+}
+
+#[derive(Subcommand)]
+enum ExtensionsCmd {
+    /// List installed extensions
+    List {
+        /// PHP version
+        version: String,
+    },
+    /// Install an extension
+    Install {
+        /// PHP version
+        version: String,
+        /// Extension name (e.g. redis, imagick, xdebug)
+        extension: String,
+    },
+    /// Remove an extension
+    Remove {
+        /// PHP version
+        version: String,
+        /// Extension name
+        extension: String,
     },
 }
 
@@ -488,7 +537,29 @@ async fn main() {
         Commands::Top => commands::status::cmd_top(&token, &output).await,
         Commands::Php { command } => match command {
             None => commands::php::cmd_php_list(&token, &output).await,
-            Some(PhpCmd::Install { version }) => commands::php::cmd_php_install(&token, &version).await,
+            Some(PhpCmd::Install { version, method }) => {
+                commands::php::cmd_php_install(&token, &version, &method).await
+            }
+            Some(PhpCmd::Remove { version, force }) => {
+                commands::php::cmd_php_remove(&token, &version, force).await
+            }
+            Some(PhpCmd::Info { version }) => {
+                commands::php::cmd_php_info(&token, &version, &output).await
+            }
+            Some(PhpCmd::FpmReload { version }) => {
+                commands::php::cmd_fpm_reload(&token, &version).await
+            }
+            Some(PhpCmd::Extensions { command }) => match command {
+                ExtensionsCmd::List { version } => {
+                    commands::php::cmd_extensions_list(&token, &version, &output).await
+                }
+                ExtensionsCmd::Install { version, extension } => {
+                    commands::php::cmd_extensions_install(&token, &version, &extension).await
+                }
+                ExtensionsCmd::Remove { version, extension } => {
+                    commands::php::cmd_extensions_remove(&token, &version, &extension).await
+                }
+            },
         },
         Commands::Diagnose => commands::status::cmd_diagnose(&token, &output).await,
         Commands::Export { output: out_file } => commands::iac::cmd_export(&token, out_file.as_deref()).await,

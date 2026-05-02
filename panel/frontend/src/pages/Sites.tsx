@@ -39,6 +39,9 @@ export default function Sites() {
   const [adminUser, setAdminUser] = useState("admin");
   const [adminPassword, setAdminPassword] = useState("");
 
+  const [installedPhpVersions, setInstalledPhpVersions] = useState<string[]>([]);
+  const [phpVersionsLoading, setPhpVersionsLoading] = useState(false);
+
   const fetchSites = () => {
     api
       .get<Site[]>("/sites")
@@ -48,6 +51,22 @@ export default function Sites() {
   };
 
   useEffect(fetchSites, []);
+
+  useEffect(() => {
+    setPhpVersionsLoading(true);
+    api.get<{ version: string; status: string }[]>("/php/versions")
+      .then((rows) => {
+        setInstalledPhpVersions(rows.filter((r) => r.status === "active").map((r) => r.version));
+      })
+      .catch(() => setInstalledPhpVersions([]))
+      .finally(() => setPhpVersionsLoading(false));
+  }, []);
+
+  useEffect(() => {
+    if (installedPhpVersions.length > 0 && !installedPhpVersions.includes(phpVersion)) {
+      setPhpVersion(installedPhpVersions[0]);
+    }
+  }, [installedPhpVersions]);
 
   const handleCreate = async (e: FormEvent) => {
     e.preventDefault();
@@ -275,7 +294,7 @@ export default function Sites() {
             </div>
           )}
 
-          {runtime === "php" && !cms && (
+          {(runtime === "php" || cms) && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="site-php-version" className="block text-sm font-medium text-dark-100 mb-1">PHP Version</label>
@@ -283,14 +302,27 @@ export default function Sites() {
                   id="site-php-version"
                   value={phpVersion}
                   onChange={(e) => setPhpVersion(e.target.value)}
-                  className="w-full px-3 py-2.5 border border-dark-500 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 outline-none text-sm bg-dark-800"
+                  disabled={phpVersionsLoading || installedPhpVersions.length === 0}
+                  className="w-full px-3 py-2.5 border border-dark-500 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 outline-none text-sm bg-dark-800 disabled:opacity-50"
                 >
-                  <option value="8.4">PHP 8.4</option>
-                  <option value="8.3">PHP 8.3</option>
-                  <option value="8.2">PHP 8.2</option>
-                  <option value="8.1">PHP 8.1</option>
+                  {installedPhpVersions.length === 0 && !phpVersionsLoading ? (
+                    <option value="">No PHP versions installed</option>
+                  ) : (
+                    installedPhpVersions.map((v) => (
+                      <option key={v} value={v}>PHP {v}</option>
+                    ))
+                  )}
                 </select>
+                {(runtime === "php" || cms) && installedPhpVersions.length === 0 && !phpVersionsLoading && (
+                  <p className="text-xs text-warn-400 mt-1.5">
+                    No PHP versions are installed on this server.{" "}
+                    <Link to="/php" className="underline hover:text-warn-300">
+                      Install one first →
+                    </Link>
+                  </p>
+                )}
               </div>
+              {!cms && (
               <div>
                 <label htmlFor="site-php-preset" className="block text-sm font-medium text-dark-100 mb-1">Framework</label>
                 <select
@@ -310,6 +342,7 @@ export default function Sites() {
                 </select>
                 <p className="text-xs text-dark-400 mt-1.5">Nginx configuration preset for your PHP framework</p>
               </div>
+              )}
             </div>
           )}
 

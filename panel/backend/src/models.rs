@@ -58,6 +58,8 @@ pub struct Site {
     pub max_upload_mb: i32,
     pub php_memory_mb: i32,
     pub php_max_workers: i32,
+    pub php_max_execution_time: i32,
+    pub php_upload_mb: i32,
     pub custom_nginx: Option<String>,
     pub php_preset: Option<String>,
     pub app_command: Option<String>,

@@ -73,6 +73,8 @@ pub struct CreateSiteRequest {
     pub php_preset: Option<String>,
     /// Start command for node/python runtimes (e.g., "npm start", "gunicorn app:app")
     pub app_command: Option<String>,
+    pub php_max_execution_time: Option<i32>,
+    pub php_upload_mb: Option<i32>,
     // One-click CMS install
     pub cms: Option<String>,
     pub site_title: Option<String>,
@@ -220,6 +222,26 @@ pub async fn create(
         }
     }
 
+    if runtime == "php" || body.cms.is_some() {
+        if let Some(ref ver) = body.php_version {
+            let active: Option<(Uuid,)> = sqlx::query_as(
+                "SELECT id FROM php_versions WHERE server_id = $1 AND version = $2 AND status = 'active'",
+            )
+            .bind(server_id)
+            .bind(ver)
+            .fetch_optional(&state.db)
+            .await
+            .map_err(|e| internal_error("validate php version", e))?;
+
+            if active.is_none() {
+                return Err(err(
+                    StatusCode::UNPROCESSABLE_ENTITY,
+                    &format!("PHP version {ver} is not installed on this server. Install it first via the PHP page."),
+                ));
+            }
+        }
+    }
+
     // Check domain uniqueness
     let existing: Option<(Uuid,)> =
         sqlx::query_as("SELECT id FROM sites WHERE domain = $1")
@@ -286,8 +308,8 @@ pub async fn create(
     };
 
     let site: Site = sqlx::query_as(
-        "INSERT INTO sites (user_id, server_id, domain, runtime, status, proxy_port, php_version, php_preset, app_command) \
-         VALUES ($1, $2, $3, $4, 'creating', $5, $6, $7, $8) RETURNING *",
+        "INSERT INTO sites (user_id, server_id, domain, runtime, status, proxy_port, php_version, php_preset, app_command, php_max_execution_time, php_upload_mb) \
+         VALUES ($1, $2, $3, $4, 'creating', $5, $6, $7, $8, $9, $10) RETURNING *",
     )
     .bind(claims.sub)
     .bind(server_id)
@@ -297,6 +319,8 @@ pub async fn create(
     .bind(&body.php_version)
     .bind(body.php_preset.as_deref().unwrap_or("generic"))
     .bind(&body.app_command)
+    .bind(body.php_max_execution_time.unwrap_or(300))
+    .bind(body.php_upload_mb.unwrap_or(64))
     .fetch_one(&mut *tx)
     .await
     .map_err(|e| {
@@ -336,6 +360,10 @@ pub async fn create(
     if let Some(ref preset) = body.php_preset {
         agent_body["php_preset"] = serde_json::json!(preset);
     }
+    agent_body["php_memory_mb"] = serde_json::json!(site.php_memory_mb);
+    agent_body["php_max_workers"] = serde_json::json!(site.php_max_workers);
+    agent_body["php_max_execution_time"] = serde_json::json!(site.php_max_execution_time);
+    agent_body["php_upload_mb"] = serde_json::json!(site.php_upload_mb);
     agent_body["fastcgi_cache"] = serde_json::json!(false);
     agent_body["redis_cache"] = serde_json::json!(false);
     agent_body["redis_db"] = serde_json::json!(0);
@@ -929,16 +957,25 @@ pub struct SwitchPhpRequest {
 pub async fn switch_php(
     State(state): State<AppState>,
     AuthUser(claims): AuthUser,
-    ServerScope(_server_id, agent): ServerScope,
+    ServerScope(server_id, agent): ServerScope,
     Path(id): Path<Uuid>,
     Json(body): Json<SwitchPhpRequest>,
 ) -> Result<Json<Site>, ApiError> {
     let version = body.version.trim();
 
-    if !["8.1", "8.2", "8.3", "8.4"].contains(&version) {
+    let active: Option<(Uuid,)> = sqlx::query_as(
+        "SELECT id FROM php_versions WHERE server_id = $1 AND version = $2 AND status = 'active'",
+    )
+    .bind(server_id)
+    .bind(version)
+    .fetch_optional(&state.db)
+    .await
+    .map_err(|e| internal_error("validate php version for switch", e))?;
+
+    if active.is_none() {
         return Err(err(
-            StatusCode::BAD_REQUEST,
-            "Invalid PHP version. Allowed: 8.1, 8.2, 8.3, 8.4",
+            StatusCode::UNPROCESSABLE_ENTITY,
+            &format!("PHP version {version} is not installed on this server"),
         ));
     }
 
@@ -962,6 +999,10 @@ pub async fn switch_php(
     let mut agent_body = serde_json::json!({
         "runtime": "php",
         "php_socket": format!("unix:/run/php/php{version}-fpm.sock"),
+        "php_memory_mb": site.php_memory_mb,
+        "php_max_workers": site.php_max_workers,
+        "php_max_execution_time": site.php_max_execution_time,
+        "php_upload_mb": site.php_upload_mb,
         "fastcgi_cache": site.fastcgi_cache,
         "redis_cache": site.redis_cache,
         "redis_db": site.redis_db,
@@ -1009,69 +1050,6 @@ pub async fn switch_php(
     Ok(Json(updated))
 }
 
-/// GET /api/php/versions — List available PHP versions (proxy to agent).
-pub async fn php_versions(
-    State(_state): State<AppState>,
-    AuthUser(_claims): AuthUser,
-    ServerScope(_server_id, agent): ServerScope,
-) -> Result<Json<serde_json::Value>, ApiError> {
-    let result = agent
-        .get("/php/versions")
-        .await
-        .map_err(|e| agent_error("Site agent operation", e))?;
-
-    Ok(Json(result))
-}
-
-/// POST /api/php/install — Install a PHP version (proxy to agent, admin only).
-#[derive(serde::Deserialize)]
-pub struct InstallPhpRequest {
-    pub version: String,
-}
-
-pub async fn php_install(
-    State(_state): State<AppState>,
-    AuthUser(claims): AuthUser,
-    ServerScope(_server_id, agent): ServerScope,
-    Json(body): Json<InstallPhpRequest>,
-) -> Result<Json<serde_json::Value>, ApiError> {
-    if claims.role != "admin" {
-        return Err(err(StatusCode::FORBIDDEN, "Admin only"));
-    }
-
-    let result = agent
-        .post(
-            "/php/install",
-            Some(serde_json::json!({ "version": body.version })),
-        )
-        .await
-        .map_err(|e| agent_error("PHP install", e))?;
-
-    Ok(Json(result))
-}
-
-/// POST /api/php/uninstall — Uninstall a specific PHP version (admin only).
-pub async fn php_uninstall(
-    State(_state): State<AppState>,
-    AuthUser(claims): AuthUser,
-    ServerScope(_server_id, agent): ServerScope,
-    Json(body): Json<InstallPhpRequest>,
-) -> Result<Json<serde_json::Value>, ApiError> {
-    if claims.role != "admin" {
-        return Err(err(StatusCode::FORBIDDEN, "Admin only"));
-    }
-
-    let result = agent
-        .post(
-            "/php/uninstall",
-            Some(serde_json::json!({ "version": body.version })),
-        )
-        .await
-        .map_err(|e| agent_error("PHP uninstall", e))?;
-
-    Ok(Json(result))
-}
-
 /// PUT /api/sites/{id}/limits — Update per-site resource limits.
 #[derive(serde::Deserialize)]
 pub struct UpdateLimitsRequest {
@@ -1079,6 +1057,8 @@ pub struct UpdateLimitsRequest {
     pub max_upload_mb: Option<i32>,
     pub php_memory_mb: Option<i32>,
     pub php_max_workers: Option<i32>,
+    pub php_max_execution_time: Option<i32>,
+    pub php_upload_mb: Option<i32>,
     pub custom_nginx: Option<String>,
 }
 
@@ -1125,15 +1105,19 @@ pub async fn update_limits(
     }
 
     let custom_nginx = body.custom_nginx.as_deref();
+    let max_exec = body.php_max_execution_time.unwrap_or(site.php_max_execution_time);
+    let php_upload = body.php_upload_mb.unwrap_or(site.php_upload_mb);
     let updated: Site = sqlx::query_as(
         "UPDATE sites SET rate_limit = $1, max_upload_mb = $2, php_memory_mb = $3, php_max_workers = $4, \
-         custom_nginx = $5, updated_at = NOW() WHERE id = $6 RETURNING *",
+         custom_nginx = $5, php_max_execution_time = $6, php_upload_mb = $7, updated_at = NOW() WHERE id = $8 RETURNING *",
     )
     .bind(body.rate_limit)
     .bind(max_upload)
     .bind(php_memory)
     .bind(php_workers)
     .bind(custom_nginx)
+    .bind(max_exec)
+    .bind(php_upload)
     .bind(id)
     .fetch_one(&state.db)
     .await
@@ -1166,6 +1150,8 @@ pub async fn update_limits(
     if let Some(ref php) = site.php_version {
         agent_body["php_socket"] = serde_json::json!(format!("unix:/run/php/php{php}-fpm.sock"));
     }
+    agent_body["php_max_execution_time"] = serde_json::json!(updated.php_max_execution_time);
+    agent_body["php_upload_mb"] = serde_json::json!(updated.php_upload_mb);
     if site.ssl_enabled {
         agent_body["ssl"] = serde_json::json!(true);
         if let Some(ref cert) = site.ssl_cert_path {
@@ -1884,8 +1870,8 @@ pub async fn clone_site(
 
     // Create new site record
     let new_site: Site = sqlx::query_as(
-        "INSERT INTO sites (user_id, server_id, domain, runtime, status, php_version, root_path, rate_limit, max_upload_mb, php_memory_mb, php_max_workers, php_preset, app_command) \
-         VALUES ($1, $2, $3, $4, 'active', $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *"
+        "INSERT INTO sites (user_id, server_id, domain, runtime, status, php_version, root_path, rate_limit, max_upload_mb, php_memory_mb, php_max_workers, php_max_execution_time, php_upload_mb, php_preset, app_command) \
+         VALUES ($1, $2, $3, $4, 'active', $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *"
     )
     .bind(claims.sub)
     .bind(server_id)
@@ -1897,6 +1883,8 @@ pub async fn clone_site(
     .bind(source.max_upload_mb)
     .bind(source.php_memory_mb)
     .bind(source.php_max_workers)
+    .bind(source.php_max_execution_time)
+    .bind(source.php_upload_mb)
     .bind(&source.php_preset)
     .bind(&source.app_command)
     .fetch_one(&state.db).await
@@ -2045,26 +2033,41 @@ pub async fn upload_ssl(
 // PHP Extensions Manager
 // ──────────────────────────────────────────────────────────────
 
-/// GET /api/php/extensions/{version} — List PHP extensions.
+/// GET /api/php/extensions/{version} — List PHP extensions (proxies agent).
 pub async fn php_extensions(
     State(_state): State<AppState>,
     AuthUser(_claims): AuthUser,
     ServerScope(_server_id, agent): ServerScope,
     Path(version): Path<String>,
 ) -> Result<Json<serde_json::Value>, ApiError> {
-    let result = agent.get(&format!("/php/extensions/{version}")).await
+    let result = agent
+        .get(&format!("/php/versions/{version}/extensions"))
+        .await
         .map_err(|e| agent_error("PHP extensions", e))?;
     Ok(Json(result))
 }
 
-/// POST /api/php/extensions/install — Install a PHP extension.
+/// POST /api/php/extensions/install — Install a PHP extension on the agent.
 pub async fn install_php_extension(
     State(_state): State<AppState>,
     AuthUser(_claims): AuthUser,
     ServerScope(_server_id, agent): ServerScope,
     Json(body): Json<serde_json::Value>,
 ) -> Result<Json<serde_json::Value>, ApiError> {
-    agent.post("/php/extensions/install", Some(body)).await
+    let version = body
+        .get("version")
+        .and_then(|v| v.as_str())
+        .ok_or_else(|| err(StatusCode::BAD_REQUEST, "version required"))?;
+    let extension = body
+        .get("extension")
+        .and_then(|v| v.as_str())
+        .ok_or_else(|| err(StatusCode::BAD_REQUEST, "extension required"))?;
+    agent
+        .post(
+            &format!("/php/versions/{version}/extensions"),
+            Some(serde_json::json!({ "name": extension })),
+        )
+        .await
         .map_err(|e| agent_error("PHP extension", e))?;
     Ok(Json(serde_json::json!({ "ok": true })))
 }

@@ -20,6 +20,7 @@ export const navGroups: NavGroup[] = [
     items: [
       { to: "/", label: "Dashboard", iconName: "dashboard" },
       { to: "/sites", label: "Sites", iconName: "sites" },
+      { to: "/php", label: "PHP", iconName: "extensions" },
       { to: "/databases", label: "Databases", iconName: "databases" },
       { to: "/wordpress-toolkit", label: "WP Toolkit", iconName: "wordpress", adminOnly: true },
       { to: "/apps", label: "Docker Apps", iconName: "apps", adminOnly: true },

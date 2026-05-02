@@ -12,6 +12,7 @@ pub mod backups;
 pub mod cdn;
 pub mod dashboard;
 pub mod oauth;
+pub mod php;
 pub mod billing;
 pub mod crons;
 pub mod databases;
@@ -512,10 +513,12 @@ pub fn router() -> Router<AppState> {
         .route("/api/sites/{id}/optimize-images", post(sites::optimize_images))
         .route("/api/sites/{id}/security-headers", put(sites::update_security_headers))
         .route("/api/sites/{id}/bot-protection", put(sites::toggle_bot_protection))
-        // PHP versions
-        .route("/api/php/versions", get(sites::php_versions))
-        .route("/api/php/install", post(sites::php_install))
-        .route("/api/php/uninstall", post(sites::php_uninstall))
+        // PHP version management
+        .route("/api/php/versions", get(php::list_versions).post(php::install_version))
+        .route("/api/php/versions/{version}", get(php::get_version).delete(php::delete_version))
+        .route("/api/php/versions/{version}/extensions", get(php::list_extensions).post(php::install_extension))
+        .route("/api/php/versions/{version}/extensions/{name}", delete(php::delete_extension))
+        .route("/api/php/install-progress/{id}", get(php::install_progress))
         // SSL
         .route("/api/sites/{id}/ssl", post(ssl::provision).get(ssl::status))
         .route("/api/sites/{id}/ssl/dns01", post(ssl::provision_dns01))

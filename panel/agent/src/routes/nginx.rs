@@ -35,6 +35,10 @@ pub struct SiteConfig {
     pub php_memory_mb: Option<u32>,
     /// PHP-FPM pm.max_children
     pub php_max_workers: Option<u32>,
+    /// php_admin_value[max_execution_time]
+    pub php_max_execution_time: Option<u32>,
+    /// php_admin_value[upload_max_filesize] and post_max_size
+    pub php_upload_mb: Option<u32>,
     /// Custom nginx directives injected into server block
     pub custom_nginx: Option<String>,
     /// PHP framework preset: "laravel", "wordpress", "drupal", "joomla", "symfony", "codeigniter", "magento", "generic"
@@ -164,7 +168,11 @@ async fn put_site(
             if let Some(ver) = socket.strip_prefix("unix:/run/php/php").and_then(|s| s.strip_suffix("-fpm.sock")) {
                 let memory = config.php_memory_mb.unwrap_or(256);
                 let workers = config.php_max_workers.unwrap_or(5);
-                if let Err(e) = services::nginx::write_php_pool_config(&domain, ver, memory, workers) {
+                let upload_mb = config.php_upload_mb.unwrap_or(64);
+                let max_exec = config.php_max_execution_time.unwrap_or(300);
+                if let Err(e) = services::nginx::write_php_pool_config(
+                    &domain, ver, memory, workers, upload_mb, max_exec,
+                ) {
                     tracing::warn!("Failed to write PHP pool config for {domain}: {e}");
                 } else {
                     // Reload PHP-FPM so the new per-site pool is actually picked up.

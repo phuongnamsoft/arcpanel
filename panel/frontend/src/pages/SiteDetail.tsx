@@ -17,6 +17,8 @@ interface Site {
   max_upload_mb: number;
   php_memory_mb: number;
   php_max_workers: number;
+  php_max_execution_time: number;
+  php_upload_mb: number;
   custom_nginx: string | null;
   php_preset: string | null;
   parent_site_id: string | null;
@@ -58,6 +60,9 @@ export default function SiteDetail() {
   const [maxUpload, setMaxUpload] = useState("64");
   const [phpMemory, setPhpMemory] = useState("256");
   const [phpWorkers, setPhpWorkers] = useState("5");
+  const [phpMaxExecTime, setPhpMaxExecTime] = useState("300");
+  const [phpUploadMb, setPhpUploadMb] = useState("64");
+  const [installedPhpVersions, setInstalledPhpVersions] = useState<string[]>([]);
   const [customNginx, setCustomNginx] = useState("");
   const [staging, setStaging] = useState<StagingInfo | null>(null);
   const [stagingLoading, setStagingLoading] = useState(false);
@@ -284,6 +289,8 @@ export default function SiteDetail() {
         setMaxUpload(String(s.max_upload_mb));
         setPhpMemory(String(s.php_memory_mb));
         setPhpWorkers(String(s.php_max_workers));
+        setPhpMaxExecTime(String(s.php_max_execution_time ?? 300));
+        setPhpUploadMb(String(s.php_upload_mb ?? 64));
         setCustomNginx(s.custom_nginx || "");
         setCspPolicy(s.csp_policy || "");
         setPermsPolicy(s.permissions_policy || "");
@@ -296,6 +303,12 @@ export default function SiteDetail() {
     loadProtected();
     loadAliases();
   }, [id]);
+
+  useEffect(() => {
+    api.get<{ version: string; status: string }[]>("/php/versions")
+      .then((rows) => setInstalledPhpVersions(rows.filter((r) => r.status === "active").map((r) => r.version)))
+      .catch(() => setInstalledPhpVersions([]));
+  }, []);
 
   const handleDelete = async () => {
     if (!confirmDelete) {
@@ -606,10 +619,12 @@ export default function SiteDetail() {
                     disabled={switchingPhp}
                     className="px-2 py-1 border border-dark-500 rounded-md text-sm bg-dark-800 focus:ring-2 focus:ring-accent-500 focus:border-accent-500 outline-none disabled:opacity-50"
                   >
-                    <option value="8.4">PHP 8.4</option>
-                    <option value="8.3">PHP 8.3</option>
-                    <option value="8.2">PHP 8.2</option>
-                    <option value="8.1">PHP 8.1</option>
+                    {installedPhpVersions.map((v) => (
+                      <option key={v} value={v}>PHP {v}</option>
+                    ))}
+                    {installedPhpVersions.length === 0 && (
+                      <option value={site.php_version ?? "8.3"}>PHP {site.php_version ?? "8.3"} (current)</option>
+                    )}
                   </select>
                   {switchingPhp && (
                     <span className="text-xs text-dark-200">Switching...</span>
@@ -892,6 +907,28 @@ export default function SiteDetail() {
                       className="w-full px-3 py-2 border border-dark-500 rounded-lg text-sm focus:ring-2 focus:ring-accent-500 focus:border-accent-500 outline-none"
                     />
                   </div>
+                  <div>
+                    <label className="block text-xs font-medium text-dark-200 mb-1">Max Execution Time (s)</label>
+                    <input
+                      type="number"
+                      value={phpMaxExecTime}
+                      onChange={(e) => setPhpMaxExecTime(e.target.value)}
+                      min="10"
+                      max="3600"
+                      className="w-full px-3 py-2 border border-dark-500 rounded-lg text-sm focus:ring-2 focus:ring-accent-500 focus:border-accent-500 outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-dark-200 mb-1">PHP Upload Max (MB)</label>
+                    <input
+                      type="number"
+                      value={phpUploadMb}
+                      onChange={(e) => setPhpUploadMb(e.target.value)}
+                      min="1"
+                      max="2048"
+                      className="w-full px-3 py-2 border border-dark-500 rounded-lg text-sm focus:ring-2 focus:ring-accent-500 focus:border-accent-500 outline-none"
+                    />
+                  </div>
                 </>
               )}
             </div>
@@ -916,7 +953,7 @@ export default function SiteDetail() {
             <div className="flex items-center justify-between">
               <p className="text-xs text-dark-300">
                 {rateLimit ? `${rateLimit} req/s per IP` : "No rate limit"} · {maxUpload} MB uploads
-                {site.runtime === "php" ? ` · ${phpMemory} MB memory · ${phpWorkers} workers` : ""}
+                {site.runtime === "php" ? ` · ${phpMemory} MB memory · ${phpWorkers} workers · ${phpMaxExecTime}s max exec · ${phpUploadMb} MB PHP upload` : ""}
               </p>
               <div className="flex items-center gap-3">
                 {limitsMessage && (
@@ -935,6 +972,8 @@ export default function SiteDetail() {
                         max_upload_mb: parseInt(maxUpload) || 64,
                         php_memory_mb: parseInt(phpMemory) || 256,
                         php_max_workers: parseInt(phpWorkers) || 5,
+                        php_max_execution_time: parseInt(phpMaxExecTime) || 300,
+                        php_upload_mb: parseInt(phpUploadMb) || 64,
                         custom_nginx: customNginx || null,
                       });
                       setSite(updated);

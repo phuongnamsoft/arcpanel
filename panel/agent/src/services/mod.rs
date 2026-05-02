@@ -17,6 +17,7 @@ pub mod logs;
 pub mod sbom_scanner;
 pub mod migration;
 pub mod nginx;
+pub mod php;
 pub mod phone_home;
 pub mod remote_backup;
 pub mod security;
