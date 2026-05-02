@@ -6,6 +6,7 @@ This folder holds **long-form technical references** for each major codebase are
 
 | Document | Scope | Start here if you… |
 |----------|--------|---------------------|
+| [folder-structure.md](./folder-structure.md) | Whole repo — directories, crates, `website/`, `scripts/`, `docs/`, `tests/`, `openspec/` | Need a **structural map** before diving into a subtree |
 | [agent.md](./agent.md) | `panel/agent/` — `arc-agent`, Tokio/Axum, Unix socket, Docker/ACME/host work | Operate or extend the **host agent**, phone-home, or agent TLS |
 | [backend.md](./backend.md) | `panel/backend/` — `arc-api`, PostgreSQL, auth, email, agent orchestration | Work on the **control-plane API**, migrations, or sessions |
 | [cli.md](./cli.md) | `panel/cli/` — `arc`, clap, HTTP over UDS to the agent | Build **operator CLI** flows or automation against the agent socket |
@@ -31,5 +32,7 @@ The **`website/`** tree is separate from the control plane: it serves marketing 
 | `panel/cli/` | Operator CLI (`arc`) |
 | `panel/frontend/` | Vite-built SPA |
 | `website/` | Public marketing site, docs sources (`website/docs/`), companion API (`website/server/`) |
+
+For a **fuller directory layout** (including `scripts/`, `tests/`, `docs/`, `openspec/`, and tooling folders), see [folder-structure.md](./folder-structure.md).
 
 For install paths and systemd layout on servers, see `scripts/setup.sh` and project `AGENTS.md` at the repository root.
