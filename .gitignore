@@ -31,6 +31,9 @@ Thumbs.db
 # Logs
 *.log
 
+# WSL2 local dev (scripts/wsl2-start-services.sh)
+.arcpanel-wsl2-dev/
+
 # SSL/TLS material
 *.pem
 *.key
