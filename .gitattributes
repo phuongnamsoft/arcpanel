@@ -1,0 +1,2 @@
+# Shell scripts must use LF so bash/sh on Linux and WSL do not see stray \r (e.g. set: pipefail\r).
+*.sh text eol=lf
