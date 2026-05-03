@@ -22,11 +22,21 @@ Version numbers for shipped artifacts are aligned across `panel/*/Cargo.toml` an
 
 Use these project skills for depth; prefer them over generic web/Rust advice when they conflict with blog posts.
 
+Most skills use `.claude/skills/<name>/SKILL.md` as the entry point. **react-best-practices** also ships `.claude/skills/react-best-practices/AGENTS.md` as the full rule catalog (SKILL.md summarizes when to open it).
+
 | Concern | Skill |
 |---------|--------|
-| Rust language, async (Tokio), Axum/tower, performance, error and test patterns | `.claude/skills/rust-pro/SKILL.md` |
-| React/TypeScript structure, accessibility mindset, component and hook quality | `.claude/skills/senior-frontend/SKILL.md` |
-| React performance and data-flow rules (waterfalls, bundle weight, re-renders, client fetching) | `.claude/skills/react-best-practices/AGENTS.md` |
+| Rust — language, async (Tokio), Axum/tower, performance, errors, tests | `.claude/skills/rust-pro/SKILL.md` |
+| Rust async — tasks, channels, streams, concurrency, debugging async code | `.claude/skills/rust-async-patterns/SKILL.md` |
+| React/TypeScript — structure, accessibility, components, hooks | `.claude/skills/senior-frontend/SKILL.md` |
+| React performance — waterfalls, bundle size, re-renders, fetching (Next-oriented rules: adapt for Vite SPA) | `.claude/skills/react-best-practices/SKILL.md` · `.claude/skills/react-best-practices/AGENTS.md` |
+| Architecture — broader system and design toolkit | `.claude/skills/senior-architect/SKILL.md` |
+| Documentation — long-form technical manuals from the codebase | `.claude/skills/docs-architect/SKILL.md` |
+| Design before implementation — creative work, requirements, gated design approval | `.claude/skills/brainstorming/SKILL.md` |
+| Implementation plans — write a plan from specs before touching code | `.claude/skills/writing-plans/SKILL.md` |
+| Execute a written plan — separate session, review checkpoints | `.claude/skills/executing-plans/SKILL.md` |
+| Execute a plan in-session — independent tasks via subagents + review | `.claude/skills/subagent-driven-development/SKILL.md` |
+| Meta — create or improve agent skills | `.claude/skills/writing-skills/SKILL.md` |
 
 **Stack caveat:** The frontend is a **Vite SPA**, not Next.js. Apply **senior-frontend** and **react-best-practices** to client-side React, routing, and API usage. Skip or adapt guidance that assumes React Server Components, the App Router, or Next-specific APIs unless you are explicitly introducing that stack.
 
@@ -101,4 +111,4 @@ CI definition: `.github/workflows/ci.yml`.
 
 ## Optional: OpenSpec / product workflow
 
-This repo includes OpenSpec-oriented skills under `.claude/skills/openspec-*` and planning skills (`brainstorming`, `writing-plans`, `executing-plans`). Use them when the user asks for a spec-first or multi-phase change, not for every trivial fix.
+Use the OpenSpec and planning rows in **Skills to apply (in-repo)** when the user asks for a spec-first or multi-phase change, not for every trivial fix. OpenSpec skills assume the OpenSpec CLI where noted in each skill.
