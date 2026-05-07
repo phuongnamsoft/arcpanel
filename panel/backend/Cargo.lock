@@ -68,6 +68,51 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c"
 
 [[package]]
+name = "arcpanel-api"
+version = "2.7.20"
+dependencies = [
+ "aes-gcm",
+ "argon2",
+ "axum",
+ "base64",
+ "chrono",
+ "ciborium",
+ "futures",
+ "hex",
+ "hkdf",
+ "hmac",
+ "http-body-util",
+ "hyper",
+ "hyper-util",
+ "jsonwebtoken",
+ "lettre",
+ "p256",
+ "qrcode",
+ "rand 0.9.4",
+ "reqwest",
+ "rustls",
+ "serde",
+ "serde_json",
+ "serde_yaml_ng",
+ "sha1",
+ "sha2",
+ "sqlx",
+ "subtle",
+ "tikv-jemallocator",
+ "tokio",
+ "tokio-stream",
+ "totp-rs",
+ "tower",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "url",
+ "urlencoding",
+ "uuid",
+ "zeroize",
+]
+
+[[package]]
 name = "argon2"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -493,51 +538,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
-]
-
-[[package]]
-name = "arcpanel-api"
-version = "2.7.20"
-dependencies = [
- "aes-gcm",
- "argon2",
- "axum",
- "base64",
- "chrono",
- "ciborium",
- "futures",
- "hex",
- "hkdf",
- "hmac",
- "http-body-util",
- "hyper",
- "hyper-util",
- "jsonwebtoken",
- "lettre",
- "p256",
- "qrcode",
- "rand 0.9.4",
- "reqwest",
- "rustls",
- "serde",
- "serde_json",
- "serde_yaml_ng",
- "sha1",
- "sha2",
- "sqlx",
- "subtle",
- "tikv-jemallocator",
- "tokio",
- "tokio-stream",
- "totp-rs",
- "tower",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "url",
- "urlencoding",
- "uuid",
- "zeroize",
 ]
 
 [[package]]
@@ -2631,9 +2631,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.51.1"
+version = "1.52.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f66bf9585cda4b724d3e78ab34b73fb2bbaba9011b9bfdf69dc836382ea13b8c"
+checksum = "110a78583f19d5cdb2c5ccf321d1290344e71313c6c37d43520d386027d18386"
 dependencies = [
  "bytes",
  "libc",
